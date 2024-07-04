@@ -1,7 +1,8 @@
+import 'package:college_app/page_teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:college_app/Loginpage.dart';
 import 'Studentpage.dart';
-import 'Teacherpage.dart';
+
 
 class Signuppage extends StatefulWidget {
   @override
@@ -198,7 +199,7 @@ class _SignuppageState extends State<Signuppage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Teacherpage()),
+                                        builder: (context) => TeacherPage()),
                                   );
                                 }
                               }
