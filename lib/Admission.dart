@@ -115,7 +115,7 @@ class _AdmissionState extends State<Admission> {
                               _selectedGender = value;
                             });
                           }, _selectedGender),
-                          buildDropdownField('Course', ['B.Sc', 'B.A', 'B.Com', 'B.Tech'], (value) {
+                          buildDropdownField('Course', ['BSIT', 'BSCS', 'BSPhy', 'BSEng','BSMath','BSPsy','BSIsl'], (value) {
                             setState(() {
                               _selectedCourse = value;
                             });
