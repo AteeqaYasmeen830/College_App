@@ -22,17 +22,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       child: Scaffold(
         backgroundColor: Colors.transparent, // Set the background color to transparent
         body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xff006769).withOpacity(0.9),
-                Color(0xFFA4EAFE).withOpacity(0.9),
-                Color(0xffa4c7c7).withOpacity(0.9),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
+        color: Colors.white,
           child: Scaffold(
             backgroundColor: Colors.transparent, // Set the Scaffold background to transparent
             floatingActionButton: FloatingActionButton(
@@ -53,7 +43,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               ),
             ),
             appBar: AppBar(
-              backgroundColor:  Color(0xFFA4EAFE).withOpacity(0.9),
+              backgroundColor: Colors.white,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -153,7 +143,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     print("Absent: $absent");
                   },
                   child: Card(
-                    color: Color(0xff006769).withOpacity(1),
+                    color: Color(0xFF00B0FF),
                     child: ListTile(
                       title: Text(name),
                       trailing: Container(
@@ -200,120 +190,118 @@ class AssignmentPage extends StatelessWidget {
   final List<String> absent;
   final String clas;
 
-  const AssignmentPage(
-      {required this.present, required this.absent, required this.clas, super.key});
+  const AssignmentPage({
+    required this.present,
+    required this.absent,
+    required this.clas,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color(0xff006769).withOpacity(0.9),
-            Color(0xFFA4EAFE).withOpacity(0.9),
-            Color(0xffa4c7c7).withOpacity(0.9),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Column(
-          children: [
-            Stack(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: 40.0),
+            alignment: Alignment.center,
+            child: Text(
+              'Attendance Page',
+              style: TextStyle(
+                fontSize: 36,
+                color: Color(0xFF00B0FF),
+                fontFamily: 'RobotoSlab-VariableFont',
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
+          _buildAttendanceContainer('Class: $clas'),
+          SizedBox(height: 20),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 40.0),
-                  child: Center(
-                    child: Text(
-                      'Attendance Page',
-                      style: TextStyle(
-                        fontSize: 36,
-                        color: Colors.white,
-                        fontFamily: 'RobotoSlab-VariableFont',
-                      ),
-                    ),
-                  ),
+                Expanded(
+                  child: _buildStudentList('Present:', present),
+                ),
+                SizedBox(height: 20),
+                Expanded(
+                  child: _buildStudentList('Absent:', absent),
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            Container(
-              margin: EdgeInsets.all(10),
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Color(0xff006769).withOpacity(1),
-                border: Border.all(
-                  color: Colors.white,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(
-                'Class: $clas',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: 'RobotoSlab-VariableFont',
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.all(10),
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Color(0xff006769).withOpacity(1),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: ListView(
-                  children: [
-                    Text(
-                      'Present:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontFamily: 'RobotoSlab-VariableFont',
-                      ),
-                    ),
-                    ...present.map((student) =>
-                        ListTile(
-                          title: Text(
-                            student,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )),
-                    SizedBox(height: 10),
-                    Text(
-                      'Absent:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontFamily: 'RobotoSlab-VariableFont',
-                      ),
-                    ),
-                    ...absent.map((student) =>
-                        ListTile(
-                          title: Text(
-                            student,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-            ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAttendanceContainer(String text) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Color(0xFF00B0FF),
+        border: Border.all(
+          color: Colors.grey,
+          width: 2,
         ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+          fontFamily: 'RobotoSlab-VariableFont',
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStudentList(String title, List<String> students) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Color(0xFF00B0FF),
+        border: Border.all(
+          color: Colors.grey,
+          width: 2,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              color: Colors.white,
+              fontFamily: 'RobotoSlab-VariableFont',
+            ),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: students.map((student) => ListTile(
+                  title: Text(
+                    student,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )).toList(),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

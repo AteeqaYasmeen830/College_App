@@ -1,220 +1,305 @@
-
 import 'package:college_app/teacher_profile/T_attendence.dart';
 import 'package:college_app/teacher_profile/T_community.dart';
 import 'package:college_app/teacher_profile/T_notification.dart';
 import 'package:college_app/teacher_profile/T_timetable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
 
 class TeacherPage extends StatefulWidget {
   @override
   _TeacherPageState createState() => _TeacherPageState();
 }
 
-class _TeacherPageState extends State<TeacherPage> with SingleTickerProviderStateMixin {
+class _TeacherPageState extends State<TeacherPage> {
   final TextStyle textStyle = TextStyle(
     color: Colors.white,
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: FontWeight.bold,
   );
 
-  late  AnimationController _controller;
-  late Animation<double> _profileCardAnimation;
-  late  Animation<double> _gridAnimation;
+  File? _profileImage;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: Duration(seconds: 2),
-      vsync: this,
-    );
-
-    _profileCardAnimation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    );
-
-    _gridAnimation = CurvedAnimation(
-      parent: _controller,
-      curve: Interval(0.5, 1.0, curve: Curves.easeInOut),
-    );
-
-    _controller.forward();
+    _loadProfileImage();
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  Future<void> _loadProfileImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final imagePath = prefs.getString('profile_image');
+    if (imagePath != null) {
+      setState(() {
+        _profileImage = File(imagePath);
+      });
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _profileImage = File(pickedFile.path);
+      });
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('profile_image', pickedFile.path);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            buildTopContainer(),
+            buildMiddleContainer(),
+            buildBottomContainer(context),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        child: Icon(Icons.add, color: Colors.black),
+        backgroundColor: Color(0xFF00B0FF),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: buildBottomNavBar(),
+    );
+  }
+
+  Widget buildTopContainer() {
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        color: Color(0xFF00B0FF),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(60),
+          bottomRight: Radius.circular(60),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            spreadRadius: 2,
+            blurRadius: 5,
+          ),
+        ],
+      ),
+      child: Center(
+        child: Text(
+          'Teacher Profile',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontFamily: 'RobotoSlab-VariableFont',
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildMiddleContainer() {
+    return Container(
+      width: 340,
+      height: 160,
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            spreadRadius: 2,
+            blurRadius: 5,
+          ),
+        ],
+      ),
+      transform: Matrix4.translationValues(0, -40, 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          buildBackground(),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 100),
-                buildAnimatedProfileCard(),
-                SizedBox(height: 60),
-                buildAnimatedGrid(context),
-              ],
+          GestureDetector(
+            onTap: _pickImage,
+            child: CircleAvatar(
+              radius: 40,
+              backgroundImage: _profileImage != null
+                  ? FileImage(_profileImage!)
+                  : AssetImage('assets/images/girlStudent.png') as ImageProvider,
             ),
+          ),
+          SizedBox(width: 20),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Mam Sadaf',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'RobotoSlab-VariableFont',
+                  color: Colors.black,
+                ),
+              ),
+              Text(
+                'HOD BSIT',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black54,
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 
-  Widget buildBackground() {
-    return Stack(
-      children: [
-        Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xff006769).withOpacity(0.9),
-                Color(0xFFA4EAFE).withOpacity(0.9),
-                Color(0xffa4c7c7).withOpacity(0.9),
+  Widget buildBottomContainer(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.only(top: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildContainer(context, Icons.add_task, 'Attendance', AttendenceT()),
+                buildContainer(context, Icons.event, 'Notifications', NotificationT()),
               ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
             ),
-          ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildContainer(context, Icons.fact_check_sharp, 'Timetable', TimetableT()),
+                buildContainer(context, Icons.call, 'Community', CommunityT()),
+              ],
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
-  Widget buildAnimatedProfileCard() {
-    return AnimatedBuilder(
-      animation: _profileCardAnimation,
-      builder: (context, child) {
-        return Opacity(
-          opacity: _profileCardAnimation.value,
-          child: Padding(
-            padding: EdgeInsets.only(top: 100 * (1 - _profileCardAnimation.value)),
-            child: child,
+  Widget buildContainer(BuildContext context, IconData icon, String title, Widget page) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => page,
           ),
         );
       },
-      child: buildProfileCard(),
-    );
-  }
-
-  Widget buildProfileCard() {
-    return Center(
       child: Container(
-        height: 180,
-        width: 320,
+        height: 150,
+        width: 150,
         decoration: BoxDecoration(
-          color: Color(0xff006769).withOpacity(1),
-          borderRadius: BorderRadius.circular(50),
-          border: Border.all(
-            color: Color(0xFFA4EAFE).withOpacity(0.9),
-            width: 2,
-          ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Color(0xFFA4EAFE).withOpacity(0.9),
+              color: Colors.grey,
               spreadRadius: 2,
-              blurRadius: 10,
-              offset: Offset(0, 5),
+              blurRadius: 5,
             ),
           ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 40,
-              child: Image(
-                image: AssetImage('assets/images/girlStudent.png'),
+            Icon(icon, size: 40, color: Color(0xFF00B0FF)),
+            SizedBox(height: 5),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'RobotoSlab-VariableFont',
               ),
             ),
-            SizedBox(height: 5),
-            Text('Ateeqa Yasmeen', style: textStyle),
-            Text('Roll no 83', style: textStyle),
-            Text('Semester 8th', style: textStyle),
           ],
         ),
       ),
     );
   }
 
-  Widget buildAnimatedGrid(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _gridAnimation,
-      builder: (context, child) {
-        return Transform.scale(
-          scale: _gridAnimation.value,
-          child: child,
-        );
-      },
-      child: buildGrid(context),
-    );
-  }
-
-  Widget buildGrid(BuildContext context) {
-    return Container(
-      width: 320,
-      child: GridView.count(
-        shrinkWrap: true,
-        crossAxisCount: 2,
-        crossAxisSpacing: 5,
-        mainAxisSpacing: 5,
-        children: [
-          buildGridItem(context, Icons.add_task, 'Attendance', AttendenceT()),
-          buildGridItem(context, Icons.event, 'Notifications', NotificationT()),
-          buildGridItem(context, Icons.fact_check_sharp, 'Timetable', TimetableT()),
-          buildGridItem(context, Icons.call, 'Community', CommunityT()),
-        ],
-      ),
-    );
-  }
-
-  Widget buildGridItem(BuildContext context, IconData icon, String title, Widget page) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => page,
+  Widget buildBottomNavBar() {
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      notchMargin: 10,
+      child: Container(
+        height: 70,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              spreadRadius: 2,
+              blurRadius: 5,
             ),
-          );
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color(0xff006769).withOpacity(1),
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(
-              color: Color(0xFFA4EAFE).withOpacity(0.9),
-              width: 2,
+          ],
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: Icon(Icons.add_task, color: Color(0xFF00B0FF)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AttendenceT(),
+                  ),
+                );
+              },
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xFFA4EAFE).withOpacity(0.9),
-                spreadRadius: 2,
-                blurRadius: 10,
-                offset: Offset(0, 5),
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 70, color: Colors.white),
-              Text(title, style: textStyle),
-            ],
-          ),
+            IconButton(
+              icon: Icon(Icons.event, color: Color(0xFF00B0FF)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NotificationT(),
+                  ),
+                );
+              },
+            ),
+            SizedBox(width: 40),
+            IconButton(
+              icon: Icon(Icons.fact_check_sharp, color: Color(0xFF00B0FF)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TimetableT(),
+                  ),
+                );
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.call, color: Color(0xFF00B0FF)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CommunityT(),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

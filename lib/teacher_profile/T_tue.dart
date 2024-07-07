@@ -17,42 +17,31 @@ class Tue extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Monday',
-          style: TextStyle(color: Colors.white),
+          'Tuesday',
+          style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Color(0xff006769),
+        backgroundColor: Colors.white,
       ),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFFA4EAFE).withOpacity(0.9),
-              Color(0xffa4c7c7).withOpacity(0.9),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        color: Colors.white,
         child: ListView.separated(
           itemBuilder: (context, index) {
             return ListTile(
               title: Text(
                 arrNames[index],
-                style: TextStyle(color: Color(0xff006769)),
+                style: TextStyle( color: Color(0xFF00B0FF),),
               ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     number[index],
-                    style: TextStyle(color: Color(0xff006769)),
+                    style: TextStyle( color: Color(0xFF00B0FF),),
                   ),
                   if (arrNamesTeachers.length > index) // Avoid out of range error
                     Text(
                       arrNamesTeachers[index],
-                      style: TextStyle(color: Color(0xff006769)),
+                      style: TextStyle( color: Color(0xFF00B0FF),),
                     ),
                 ],
               ),
@@ -60,7 +49,7 @@ class Tue extends StatelessWidget {
           },
           separatorBuilder: (context, index) {
             return Divider(
-              color: Color(0xff006769),
+              color: Color(0xFF00B0FF),
               height: 20,
               thickness: 2,
             );

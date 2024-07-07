@@ -7,30 +7,19 @@ class Sun extends StatelessWidget{
     var arrNames=['','OFF Day',''];
     return Scaffold(
         appBar: AppBar(
-          title: Text('Sunday',style: TextStyle(color: Colors.white),),
-          backgroundColor: Color(0xff006769),
+          title: Text('Sunday',style: TextStyle(color: Colors.black),),
+          backgroundColor: Colors.white,
         ),
         body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFFA4EAFE).withOpacity(0.9),
-                Color(0xffa4c7c7).withOpacity(0.9),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
+          color: Colors.white,
           child: ListView.separated(itemBuilder:(context,index){
             return ListTile(
-              title: Text(arrNames[index],style: TextStyle(color: Color(0xff006769),),),
+              title: Text(arrNames[index],style: TextStyle( color: Color(0xFF00B0FF),),),
             );
           },
             separatorBuilder: (context,index){
               return Divider(
-                color: Color(0xff006769),
+                color: Color(0xFF00B0FF),
                 height: 20,
                 thickness: 2,
               );

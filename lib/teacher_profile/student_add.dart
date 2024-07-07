@@ -30,19 +30,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                 return Stack(
                   children: [
                     Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color(0xff006769).withOpacity(0.9),
-                            Color(0xFFA4EAFE).withOpacity(0.9),
-                            Color(0xffa4c7c7).withOpacity(0.9),
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                      ),
+                     color: Colors.white,
                     ),
                     Positioned(
                       top: constraints.maxHeight * 0.17,
@@ -52,7 +40,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                         height: 202,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color(0xff006769).withOpacity(1),
+                            color: Color(0xFF00B0FF)
                         ),
                       ),
                     ),
@@ -64,7 +52,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                         height: circleHeight,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color(0xff006769).withOpacity(1),
+                            color: Color(0xFF00B0FF),
                         ),
                       ),
                     ),
@@ -85,7 +73,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                     style: TextStyle(
                       fontSize: 30,
                       fontFamily: 'RobotoSlab-VariableFont',
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                   Expanded(
@@ -95,15 +83,15 @@ class _AddStudentPageState extends State<AddStudentPage> {
                           padding: EdgeInsets.all(20.0),
                           margin: EdgeInsets.only(top: 30),  // Add margin to move the container down
                           decoration: BoxDecoration(
-                            color: Color(0xff006769).withOpacity(1),
+                            color: Colors.white,
                             border: Border.all(
-                              color: Colors.white,
+                              color: Colors.grey,
                               width: 2.0,
                             ),
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.white,
+                                color: Colors.grey,
                                 blurRadius: 10.0,
                                 spreadRadius: 3.0,
                               ),
@@ -142,7 +130,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                                   Text(
                                     'Dep: ',
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Color(0xFF00B0FF),
                                       fontSize: 25,
                                       fontFamily: 'RobotoSlab-VariableFont',
                                     ),
@@ -175,7 +163,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                                       hint: Text(
                                         'Dep',
                                         style: TextStyle(
-                                          color: Colors.white,
+                                          color: Color(0xFF00B0FF),
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
                                         ),
@@ -186,7 +174,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                                   Text(
                                     'Sem: ',
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Color(0xFF00B0FF),
                                       fontSize: 25,
                                       fontFamily: 'RobotoSlab-VariableFont',
                                     ),
@@ -219,7 +207,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                                       hint: Text(
                                         'Sem',
                                         style: TextStyle(
-                                          color: Colors.white,
+                                          color: Color(0xFF00B0FF),
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
                                         ),
@@ -230,7 +218,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                               ),
                               SizedBox(height: 20),
                               MaterialButton(
-                                color: Colors.white,
+    color: Color(0xFF00B0FF),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),

@@ -14,23 +14,11 @@ class TimetableT extends StatelessWidget{
     var arrNames =['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
     return Scaffold(
       appBar: AppBar(
-        title: Text('Timetable',style: TextStyle(color: Colors.white),),
-        backgroundColor: Color(0xFFA4EAFE).withOpacity(0.9),
+        title: Text('Timetable',style: TextStyle(color: Colors.black),),
+        backgroundColor: Colors.white,
       ),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xff006769).withOpacity(0.9),
-              Color(0xFFA4EAFE).withOpacity(0.9),
-              Color(0xffa4c7c7).withOpacity(0.9),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+       color: Colors.white,
         child: Column(
           children: [
             InkWell(
@@ -40,7 +28,7 @@ class TimetableT extends StatelessWidget{
               child:Container(
                 child: Card(
                   child:Container(
-                    color:Color(0xff006769) ,
+                    color: Color(0xFF00B0FF),
                     height: 70,
                     width:double.infinity,
                     child:Center(child: Text('Monday',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),)) ,
@@ -55,7 +43,8 @@ class TimetableT extends StatelessWidget{
               child:Container(
                 child: Card(
                   child:Container(
-                    color: Color(0xff006769),
+                    color: Color(0xFF00B0FF),
+
                     height: 70,
                     width:double.infinity,
                     child:Center(child: Text('Tuesday',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),)) ,
@@ -70,7 +59,7 @@ class TimetableT extends StatelessWidget{
               child:Container(
                 child: Card(
                   child:Container(
-                    color: Color(0xff006769),
+                    color: Color(0xFF00B0FF),
                     height: 70,
                     width:double.infinity,
                     child:Center(child: Text('Wednesday',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),)) ,
@@ -85,7 +74,7 @@ class TimetableT extends StatelessWidget{
               child:Container(
                 child: Card(
                   child:Container(
-                    color: Color(0xff006769),
+                    color: Color(0xFF00B0FF),
                     height: 70,
                     width:double.infinity,
                     child:Center(child: Text('Thursday',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),)) ,
@@ -100,7 +89,7 @@ class TimetableT extends StatelessWidget{
               child:Container(
                 child: Card(
                   child:Container(
-                    color: Color(0xff006769),
+                    color: Color(0xFF00B0FF),
                     height: 70,
                     width:double.infinity,
                     child:Center(child: Text('Friday',style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,),)) ,
@@ -115,7 +104,7 @@ class TimetableT extends StatelessWidget{
               child:Container(
                 child: Card(
                   child:Container(
-                    color: Color(0xff006769),
+                    color: Color(0xFF00B0FF),
                     height: 70,
                     width:double.infinity,
                     child:Center(child: Text('Saturday',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),)) ,
@@ -130,7 +119,7 @@ class TimetableT extends StatelessWidget{
               child:Container(
                 child: Card(
                   child:Container(
-                    color: Color(0xff006769),
+                    color: Color(0xFF00B0FF),
                     height: 70,
                     width:double.infinity,
                     child:Center(child: Text('Sunday',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),)) ,
