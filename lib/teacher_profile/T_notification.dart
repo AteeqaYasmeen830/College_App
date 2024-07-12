@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Event extends StatelessWidget {
+class NotificationT extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Event',
-          style: TextStyle(color: Colors.white),
+        title: Center(
+          child: Text(
+            'Notifications',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         backgroundColor: Color(0xff006769),
       ),

@@ -1,45 +1,43 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Tuesday extends StatelessWidget{
+class Wednesday extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    var arrNames=['English','OS','Meeting','Linear Algebra',''];
+    var arrNames=['Statistics','PM','Break','DA',''];
     var number=['8:00AM - 9:00AM','9:00AM - 10:00AM','10:00AM - 10:30AM','10:30AM - 12:00PM',''];
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
         appBar: AppBar(
-          title: Text('Tuesday',style: TextStyle(color: Colors.white),),
-          backgroundColor: Color(0xff006769),
+          title: Text('Wednesday',style: TextStyle(color: Colors.white),),
+          backgroundColor: Color(0xFF0077B6),
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
         ),
         body:Container(
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFFA4EAFE).withOpacity(0.9),
-                Color(0xffa4c7c7).withOpacity(0.9),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+           color: Colors.white,
           ),
           child: ListView.separated(itemBuilder:(context,index){
             return ListTile(
-              title: Text(arrNames[index],style: TextStyle(color: Color(0xff006769),),),
-              subtitle: Text(number[index],style: TextStyle(color: Color(0xff006769),),),
+              title: Text(arrNames[index],style: TextStyle(color: Color(0xFF0077B6),),),
+              subtitle: Text(number[index],style: TextStyle(color: Color(0xFF0077B6),),),
             );
           },
             separatorBuilder: (context,index){
               return Divider(
-                color: Color(0xff006769),
+                color: Color(0xFF0077B6),
                 height: 20,
                 thickness: 2,
               );
             },
             itemCount: arrNames.length,
           ),
-        )
+        ),
+      ),
     );
   }
 }

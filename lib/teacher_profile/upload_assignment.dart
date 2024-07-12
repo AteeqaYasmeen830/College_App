@@ -4,12 +4,12 @@ import 'package:open_file/open_file.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Assignment extends StatefulWidget {
+class upload_assignments extends StatefulWidget {
   @override
-  _AssignmentState createState() => _AssignmentState();
+  _upload_assignmentsState createState() => _upload_assignmentsState();
 }
 
-class _AssignmentState extends State<Assignment> {
+class _upload_assignmentsState extends State<upload_assignments> {
   List<File> _files = [];
 
   @override
@@ -76,26 +76,14 @@ class _AssignmentState extends State<Assignment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff006769),
+        backgroundColor: Colors.white,
         title: Text(
           'Assignment',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
       ),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xff006769).withOpacity(0.9),
-              Color(0xFFA4EAFE).withOpacity(0.9),
-              Color(0xffa4c7c7).withOpacity(0.9),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        color: Color(0xFF00B0FF),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -104,7 +92,7 @@ class _AssignmentState extends State<Assignment> {
                   ? Center(
                 child: Text(
                   'No file selected',
-                  style: TextStyle(fontSize: 20, color:Color(0xff006769)),
+                  style: TextStyle(fontSize: 20, color:Colors.black),
                 ),
               )
                   : ListView.builder(
@@ -115,7 +103,7 @@ class _AssignmentState extends State<Assignment> {
                     child: ListTile(
                       title: Text(
                         _files[index].path.split('/').last,
-                        style: TextStyle(color: Color(0xff006769)),
+                        style: TextStyle(color:Color(0xFF00B0FF),),
                       ),
                       trailing: IconButton(
                         icon: Icon(Icons.delete, color: Colors.red),
@@ -130,12 +118,12 @@ class _AssignmentState extends State<Assignment> {
             Container(
               padding: EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Color(0xff006769),
+                color: Color(0xFF00B0FF),
               ),
               child: ElevatedButton(
                 onPressed: _uploadFile,
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Color(0xff006769),
+                  foregroundColor: Color(0xFF00B0FF),
                   backgroundColor: Colors.white, // Text color
                 ),
                 child: Text('Upload File'),

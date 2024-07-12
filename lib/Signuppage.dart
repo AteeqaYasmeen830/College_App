@@ -1,7 +1,8 @@
+import 'package:college_app/teacher_profile/page_teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:college_app/Loginpage.dart';
-import 'Studentpage.dart';
-import 'Teacherpage.dart';
+import 'Student_profile/Studentpage.dart';
+
 
 class Signuppage extends StatefulWidget {
   @override
@@ -18,18 +19,18 @@ class _SignuppageState extends State<Signuppage> {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
-         child:Stack(
-           children: [
-             Container(
-               width: double.infinity,
-               height: 600,
-               decoration: BoxDecoration(
-                 color: Color(0xff087ebd),
-                 borderRadius: BorderRadius.only(
-                   bottomRight: Radius.elliptical(500, 500),
-                 ),
-               ),
-             ),
+          child: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 600,
+                decoration: BoxDecoration(
+                  color: Color(0xff087ebd),
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.elliptical(500, 500),
+                  ),
+                ),
+              ),
               Column(
                 children: [
                   SizedBox(height: 130),
@@ -129,13 +130,13 @@ class _SignuppageState extends State<Signuppage> {
                                 ),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xff087ebd),
+                                    color: Color(0xFF0077B6),
                                   ),
                                 ),
-                                suffixIcon: Icon(Icons.person, color: Color(0xff087ebd)),
-                                labelStyle: TextStyle(color: Color(0xff087ebd)),
+                                suffixIcon: Icon(Icons.person, color: Color(0xFF0077B6)),
+                                labelStyle: TextStyle(color: Color(0xFF0077B6)),
                               ),
-                              style: TextStyle(color: Color(0xff087ebd)), // Set text color to white
+                              style: TextStyle(color: Color(0xFF0077B6)),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your username';
@@ -145,7 +146,7 @@ class _SignuppageState extends State<Signuppage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.all(2.0),
                             child: DropdownButtonFormField<String>(
                               decoration: InputDecoration(
                                 labelText: 'Role',
@@ -154,16 +155,16 @@ class _SignuppageState extends State<Signuppage> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xff087ebd)),
+                                  borderSide: BorderSide(color: Color(0xFF0077B6)),
                                 ),
-                                labelStyle: TextStyle(color: Color(0xff087ebd)),
+                                labelStyle: TextStyle(color: Color(0xFF0077B6)),
                               ),
-                              dropdownColor:  Colors.white, // Dropdown background color
-                              iconEnabledColor: Color(0xff087ebd), // Set the arrow color to white
+                              style: TextStyle(color: Color(0xFF0077B6)),
+                              iconEnabledColor: Color(0xFF0077B6),
                               items: ['Student', 'Teacher']
                                   .map((role) => DropdownMenuItem<String>(
                                 value: role,
-                                child: Text(role, style: TextStyle(color:Color(0xff087ebd))), // Set dropdown item text color to white
+                                child: Text(role),
                               ))
                                   .toList(),
                               onChanged: (value) {
@@ -194,14 +195,14 @@ class _SignuppageState extends State<Signuppage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Teacherpage()),
+                                          builder: (context) => TeacherPage()),
                                     );
                                   }
                                 }
                               },
                               child: Text('Sign Up',style: TextStyle(color: Colors.white),),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xff087ebd),
+                                backgroundColor: Color(0xFF0077B6),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -214,13 +215,13 @@ class _SignuppageState extends State<Signuppage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Loginpage(),
+                                    builder: (context) => Loginpage()
                                 ),
                               );
                             },
                             child: Text(
                               'Already have an account? Login',
-                              style: TextStyle(color: Color(0xff087ebd)),
+                              style: TextStyle(color: Color(0xFF0077B6)),
                             ),
                           ),
                         ],
@@ -229,7 +230,7 @@ class _SignuppageState extends State<Signuppage> {
                   ),
                 ],
               ),
-             ]
+            ],
           ),
         ),
       ),

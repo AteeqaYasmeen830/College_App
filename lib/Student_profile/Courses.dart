@@ -124,15 +124,20 @@ class _CoursesState extends State<Courses> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff006769),
-        title: Text(
-          'Courses',
-          style: TextStyle(color: Colors.white),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xFF0077B6),
+          title: Text(
+            'Courses',
+            style: TextStyle(color: Colors.white),
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
         ),
+        body: buildBody(),
       ),
-      body: buildBody(),
     );
   }
 
@@ -155,9 +160,8 @@ class _CoursesState extends State<Courses> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xff006769).withOpacity(0.9),
-            Color(0xFFA4EAFE).withOpacity(0.9),
-            Color(0xffa4c7c7).withOpacity(0.9),
+            Color(0xFF0077B6).withOpacity(0.9),
+            Colors.white.withOpacity(0.9),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -173,15 +177,15 @@ class _CoursesState extends State<Courses> {
             child: ExpansionTile(
               title: Text(
                 department,
-                style: TextStyle(color: Color(0xff006769), fontWeight: FontWeight.bold),
+                style: TextStyle(color: Color(0xFF0077B6), fontWeight: FontWeight.bold),
               ),
-              iconColor: Color(0xff006769),
-              collapsedIconColor: Color(0xff006769),
+              iconColor: Color(0xFF0077B6),
+              collapsedIconColor: Color(0xFF0077B6),
               children: semesters.keys.map((semester) {
                 return ListTile(
                   title: Text(
                     semester,
-                    style: TextStyle(color: Color(0xff006769)),
+                    style: TextStyle(color: Color(0xFF0077B6)),
                   ),
                   onTap: () {
                     setState(() {
@@ -213,15 +217,15 @@ class _CoursesState extends State<Courses> {
             child: ExpansionTile(
               title: Text(
                 semester,
-                style: TextStyle(color: Color(0xff006769), fontWeight: FontWeight.bold),
+                style: TextStyle(color: Color(0xFF0077B6),fontWeight: FontWeight.bold),
               ),
-              iconColor: Color(0xff006769),
-              collapsedIconColor: Color(0xff006769),
+              iconColor: Color(0xFF0077B6),
+              collapsedIconColor: Color(0xFF0077B6),
               children: subjects.map((subject) {
                 return ListTile(
                   title: Text(
                     subject,
-                    style: TextStyle(color: Color(0xff006769)),
+                    style: TextStyle(color: Color(0xFF0077B6)),
                   ),
                   onTap: () {
                     setState(() {
@@ -249,7 +253,7 @@ class _CoursesState extends State<Courses> {
           return ListTile(
             title: Text(
               subject,
-              style: TextStyle(color: Color(0xff006769)),
+              style: TextStyle(color:Color(0xFF0077B6)),
             ),
             onTap: () {
               setState(() {
@@ -281,7 +285,7 @@ class _CoursesState extends State<Courses> {
             : Center(
           child: Text(
             'No image available',
-            style: TextStyle(color: Color(0xff006769), fontSize: 18),
+            style: TextStyle(color: Color(0xFF0077B6), fontSize: 18),
           ),
         ),
       ),
