@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Event extends StatelessWidget {
+class Community extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

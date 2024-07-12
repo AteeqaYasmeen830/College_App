@@ -113,6 +113,32 @@ class Loginpage extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(5.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                labelText: 'User Name',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xFF0077B6),
+                                  ),
+                                ),
+                                suffixIcon: Icon(Icons.person, color: Color(0xFF0077B6)),
+                                labelStyle: TextStyle(color: Color(0xFF0077B6)),
+                              ),
+                              style: TextStyle(color: Color(0xFF0077B6)),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your username';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState?.validate() == true) {
