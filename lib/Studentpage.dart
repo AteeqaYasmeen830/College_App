@@ -8,34 +8,62 @@ import 'package:college_app/Assignment.dart';
 import 'package:college_app/Timetable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'AppDrawer.dart';
 
 class Studentpage extends StatelessWidget {
-  final Color mainColor = Color(0xff006769);
+  final Color primaryColor = Color(0xff087ebd);  // Updated primary color
+  final Color backgroundColor = Color(0xFFF0F8FF);
   final TextStyle textStyle = TextStyle(
-    fontSize: 20,
-    color: Color(0xff006769),
+    fontSize: 16,
+    color: Colors.black,
     fontWeight: FontWeight.bold,
   );
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          buildBackground(),
-          SingleChildScrollView(
-            child: Column(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: primaryColor,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.white),
+        ),
+        drawer: AppDrawer(),
+        body: Stack(
+          children: [
+            buildBackground(),
+            Column(
               children: [
-                SizedBox(height: 50),
-                Image(
-                  color: Colors.white,
-                  image: AssetImage('assets/images/Studentpage.png'),
-                ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
                 buildProfileCard(),
-                SizedBox(height: 10),
-                buildGrid(context),
+                SizedBox(height: 20),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: buildGrid(context),
+                  ),
+                ),
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildBackground() {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: backgroundColor,
+      child: Column(
+        children: [
+          Container(
+            height: 200,
+            decoration: BoxDecoration(
+              color: primaryColor,
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(30),
+              ),
             ),
           ),
         ],
@@ -43,75 +71,35 @@ class Studentpage extends StatelessWidget {
     );
   }
 
-  Widget buildBackground() {
-    return Stack(
-      children: [
-        Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                mainColor.withOpacity(0.9),
-                Color(0xFFA4EAFE).withOpacity(0.9),
-                Color(0xffa4c7c7).withOpacity(0.9),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-        ),
-        Positioned(
-          top: -160,
-          left: -160,
-          child: buildCircleDecoration(),
-        ),
-        Positioned(
-          bottom: -160,
-          right: -160,
-          child: buildCircleDecoration(),
-        ),
-      ],
-    );
-  }
-
-  Widget buildCircleDecoration() {
-    return Container(
-      height: 440,
-      width: 440,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(900),
-        color: mainColor,
-      ),
-    );
-  }
-
   Widget buildProfileCard() {
     return Center(
       child: Container(
-        height: 180,
-        width: 320,
+        height: 150,
+        width: 300,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(50),
-          border: Border.all(
-            color: mainColor,
-            width: 2,
-          ),
+          borderRadius: BorderRadius.circular(15),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
           children: [
-            CircleAvatar(
-              radius: 40,
-              child: Image(
-                image: AssetImage('assets/images/girlStudent.png'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                radius: 40,
+                backgroundImage: AssetImage('assets/images/girlStudent.png'),
               ),
             ),
-            SizedBox(height: 5),
-            Text('Ateeqa Yasmeen', style: textStyle),
-            Text('Roll no 83', style: textStyle),
-            Text('Semester 8th', style: textStyle),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Ateeqa Yasmeen', style: textStyle.copyWith(fontSize: 20)),
+                  Text('Roll no 83', style: textStyle.copyWith(fontSize: 14, color: Colors.grey)),
+                  Text('Semester 8th', style: textStyle.copyWith(fontSize: 14, color: Colors.grey)),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -120,12 +108,13 @@ class Studentpage extends StatelessWidget {
 
   Widget buildGrid(BuildContext context) {
     return Container(
-      height: 340,
-      width: 320,
+      padding: EdgeInsets.all(16.0),
       child: GridView.count(
         crossAxisCount: 2,
-        crossAxisSpacing: 5,
-        mainAxisSpacing: 5,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         children: [
           buildGridItem(context, Icons.add_task, 'Admission', Admission()),
           buildGridItem(context, Icons.event, 'Event', Event()),
@@ -141,36 +130,36 @@ class Studentpage extends StatelessWidget {
   }
 
   Widget buildGridItem(BuildContext context, IconData icon, String title, Widget page) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => page,
-            ),
-          );
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(
-              color: mainColor,
-              width: 2,
-            ),
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => page,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 70, color: mainColor),
-              Text(title, style: textStyle),
-            ],
-          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              spreadRadius: 5,
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 50, color: primaryColor),
+            SizedBox(height: 10),
+            Text(title, style: textStyle.copyWith(fontSize: 14)),
+          ],
         ),
       ),
     );
   }
 }
-

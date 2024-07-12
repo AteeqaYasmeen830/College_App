@@ -3,67 +3,58 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Loginpage extends StatelessWidget {
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xff006769).withOpacity(0.9),
-              Color(0xFFA4EAFE).withOpacity(0.9),
-              Color(0xffa4c7c7).withOpacity(0.9),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 600,
+                decoration: BoxDecoration(
+                  color: Color(0xff087ebd),
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.elliptical(500, 500),
+                  ),
+                ),
+              ),
+              Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 150,
-                      width: 350,
-                      child: Image(
-                        image: AssetImage('assets/images/Cap.png'),
-                      ),
+                  SizedBox(height: 130),
+                  Text(
+                    'Login',
+                    style: TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
+                  SizedBox(height: 30),
                   Container(
-                    margin: EdgeInsets.only(left: 16,right: 16),
+                    margin: EdgeInsets.only(left: 16, right: 16),
                     padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Color(0xff006769).withOpacity(1),
-                      border: Border.all(
-                        color: Colors.white,
-                      ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
                     ),
                     child: Form(
-                      key: _formKey, // Assign the key to the Form widget
+                      key: _formKey,
                       child: Column(
                         children: [
-                          Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 34,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-
                           Padding(
-                            padding: const EdgeInsets.all(2.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: TextFormField(
                               decoration: InputDecoration(
                                 labelText: 'Email',
@@ -73,12 +64,13 @@ class Loginpage extends StatelessWidget {
                                 ),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Color(0xff087ebd),
                                   ),
                                 ),
-                                suffixIcon: Icon(Icons.email, color: Colors.white),
-                                labelStyle: TextStyle(color: Colors.white),
+                                suffixIcon: Icon(Icons.email, color: Color(0xff087ebd)),
+                                labelStyle: TextStyle(color: Color(0xff087ebd)),
                               ),
+                              style: TextStyle(color: Color(0xff087ebd)),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your email';
@@ -93,7 +85,7 @@ class Loginpage extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(2.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: TextFormField(
                               decoration: InputDecoration(
                                 labelText: 'Password',
@@ -103,20 +95,17 @@ class Loginpage extends StatelessWidget {
                                 ),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Color(0xff087ebd),
                                   ),
                                 ),
-                                suffixIcon: Icon(Icons.lock, color: Colors.white),
-                                labelStyle: TextStyle(color: Colors.white),
+                                suffixIcon: Icon(Icons.lock, color: Color(0xff087ebd)),
+                                labelStyle: TextStyle(color: Color(0xff087ebd)),
                               ),
+                              style: TextStyle(color: Color(0xff087ebd)),
                               obscureText: true,
-                              // Add validation logic here
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your password';
-                                }
-                                if (value.length < 6) {
-                                  return 'Password must be at least 6 characters long';
                                 }
                                 return null;
                               },
@@ -126,22 +115,27 @@ class Loginpage extends StatelessWidget {
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
                               onPressed: () {
-                                // Validate returns true if the form is valid, otherwise false.
                                 if (_formKey.currentState?.validate() == true) {
-                                  // If the form is valid, display a snackbar.
+                                  // Process data
                                 }
                               },
-                              child: Text('Login'),
+                              child: Text('Login',style: TextStyle(color: Colors.white),),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff087ebd),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                              ),
                             ),
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>Signuppage(),)
-                              );
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Signuppage()));
                             },
                             child: Text(
                               'Don\'t have an account? Register',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Color(0xff087ebd)),
                             ),
                           ),
                         ],
@@ -150,9 +144,10 @@ class Loginpage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
+            ],
           ),
         ),
+      ),
     );
   }
 }

@@ -14,218 +14,222 @@ class _SignuppageState extends State<Signuppage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xff006769).withOpacity(0.9),
-              Color(0xFFA4EAFE).withOpacity(0.9),
-              Color(0xffa4c7c7).withOpacity(0.9),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 150,
-                    width: 350,
-                    child: Image(
-                      image: AssetImage('assets/images/Cap.png'),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 16, right: 16),
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color(0xff006769).withOpacity(1),
-                    border: Border.all(
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+         child:Stack(
+           children: [
+             Container(
+               width: double.infinity,
+               height: 600,
+               decoration: BoxDecoration(
+                 color: Color(0xff087ebd),
+                 borderRadius: BorderRadius.only(
+                   bottomRight: Radius.elliptical(500, 500),
+                 ),
+               ),
+             ),
+              Column(
+                children: [
+                  SizedBox(height: 130),
+                  Text(
+                    'Sign Up',
+                    style: TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'Email',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide.none,
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              suffixIcon: Icon(Icons.email, color: Colors.white),
-                              labelStyle: TextStyle(color: Colors.white),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
-                              }
-                              String pattern = r'^[^@]+@gmail\.com$';
-                              RegExp regex = RegExp(pattern);
-                              if (!regex.hasMatch(value)) {
-                                return 'Please enter a valid Email address';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide.none,
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              suffixIcon: Icon(Icons.lock, color: Colors.white),
-                              labelStyle: TextStyle(color: Colors.white),
-                            ),
-                            obscureText: true,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
-                              }
-                              if (value.length < 6) {
-                                return 'Password must be at least 6 characters long';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'User Name',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide.none,
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              suffixIcon: Icon(Icons.person, color: Colors.white),
-                              labelStyle: TextStyle(color: Colors.white),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your username';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              labelText: 'Role',
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              labelStyle: TextStyle(color: Colors.white),
-                            ),
-                            items: ['Student', 'Teacher']
-                                .map((role) => DropdownMenuItem<String>(
-                              value: role,
-                              child: Text(role),
-                            ))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedRole = value;
-                              });
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please select your role';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState?.validate() == true) {
-                                if (_selectedRole == 'Student') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Studentpage()),
-                                  );
-                                } else if (_selectedRole == 'Teacher') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Teacherpage()),
-                                  );
-                                }
-                              }
-                            },
-                            child: Text('Sign Up'),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Loginpage(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'Already have an account? Login',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                  SizedBox(height: 30),
+                  Container(
+                    margin: EdgeInsets.only(left: 16, right: 16),
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
                         ),
                       ],
                     ),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                labelText: 'Email',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xff087ebd),
+                                  ),
+                                ),
+                                suffixIcon: Icon(Icons.email, color: Color(0xff087ebd)),
+                                labelStyle: TextStyle(color: Color(0xff087ebd)),
+                              ),
+                              style: TextStyle(color: Color(0xff087ebd)),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your email';
+                                }
+                                String pattern = r'^[^@]+@gmail\.com$';
+                                RegExp regex = RegExp(pattern);
+                                if (!regex.hasMatch(value)) {
+                                  return 'Please enter a valid Email address';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xff087ebd),
+                                  ),
+                                ),
+                                suffixIcon: Icon(Icons.lock, color: Color(0xff087ebd)),
+                                labelStyle: TextStyle(color: Color(0xff087ebd)),
+                              ),
+                              style: TextStyle(color: Color(0xff087ebd)),
+                              obscureText: true,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your password';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                labelText: 'User Name',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xff087ebd),
+                                  ),
+                                ),
+                                suffixIcon: Icon(Icons.person, color: Color(0xff087ebd)),
+                                labelStyle: TextStyle(color: Color(0xff087ebd)),
+                              ),
+                              style: TextStyle(color: Color(0xff087ebd)), // Set text color to white
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your username';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                labelText: 'Role',
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Color(0xff087ebd)),
+                                ),
+                                labelStyle: TextStyle(color: Color(0xff087ebd)),
+                              ),
+                              dropdownColor:  Colors.white, // Dropdown background color
+                              iconEnabledColor: Color(0xff087ebd), // Set the arrow color to white
+                              items: ['Student', 'Teacher']
+                                  .map((role) => DropdownMenuItem<String>(
+                                value: role,
+                                child: Text(role, style: TextStyle(color:Color(0xff087ebd))), // Set dropdown item text color to white
+                              ))
+                                  .toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedRole = value;
+                                });
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please select your role';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (_formKey.currentState?.validate() == true) {
+                                  if (_selectedRole == 'Student') {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Studentpage()),
+                                    );
+                                  } else if (_selectedRole == 'Teacher') {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Teacherpage()),
+                                    );
+                                  }
+                                }
+                              },
+                              child: Text('Sign Up',style: TextStyle(color: Colors.white),),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff087ebd),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Loginpage(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Already have an account? Login',
+                              style: TextStyle(color: Color(0xff087ebd)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+             ]
           ),
         ),
       ),
