@@ -3,6 +3,7 @@ import 'Assignment.dart';
 import 'Chart.dart';
 import 'Resources.dart';
 import 'StudyGroup.dart';
+import 'package:flutter/cupertino.dart';
 
 class Community extends StatelessWidget {
   @override
@@ -15,7 +16,7 @@ class Community extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Color(0xFF0077B6),
-          iconTheme:  IconThemeData(
+          iconTheme: IconThemeData(
             color: Colors.white,
           ),
         ),
@@ -54,7 +55,7 @@ class Community extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>  StudyGroup()),
+                    MaterialPageRoute(builder: (context) => StudyGroup()),
                   );
                 },
               ),
@@ -78,7 +79,7 @@ class Community extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Chat()),
+                    MaterialPageRoute(builder: (context) => Chart()),
                   );
                 },
               ),
@@ -152,53 +153,4 @@ class CommunityCard extends StatelessWidget {
     );
   }
 }
-
-
-
-class GroupDetail extends StatelessWidget {
-  final String title;
-  final String description;
-
-  const GroupDetail({
-    required this.title,
-    required this.description,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      margin: EdgeInsets.only(bottom: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ListTile(
-        contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-        title: Text(
-          title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF0077B6),
-            fontSize: 18,
-          ),
-        ),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Text(
-            description,
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 16,
-            ),
-          ),
-        ),
-        trailing: Icon(Icons.arrow_forward, color: Color(0xFF0077B6)),
-        onTap: () {
-          // Navigate to detailed group page or perform action
-        },
-      ),
-    );
-  }
-}
-
 

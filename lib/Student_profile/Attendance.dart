@@ -81,8 +81,8 @@ class Attendance extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
+    )
+      )
     );
   }
 }
