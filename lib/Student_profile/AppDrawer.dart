@@ -67,50 +67,40 @@ class _AppDrawerState extends State<AppDrawer> {
                   color: Color(0xff087ebd),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 3.0),
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: _currentProfileImagePath.isNotEmpty
-                            ? FileImage(File(_currentProfileImagePath))
-                            : AssetImage('assets/images/girlStudent.png')
-                                as ImageProvider,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 3.0),
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundImage: _currentProfileImagePath.isNotEmpty
+                              ? FileImage(File(_currentProfileImagePath))
+                              : AssetImage('assets/images/girlStudent.png')
+                                  as ImageProvider,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Ateeqa Yasmeen',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          ),
-                          Text(
-                            'Roll no 83',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                            ),
-                          ),
-                          Text(
-                            'Semester 8th',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
+                      SizedBox(height: 10),
+                      Expanded(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                ' ${widget.name}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(' ${widget.email}',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                            ]),
                       ),
-                    ),
-                  ],
-                ),
+                    ]),
               ),
             ),
             buildListTile(Icons.person, 'View Profile', context, () {

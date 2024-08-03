@@ -177,9 +177,6 @@ class _StudentpageState extends State<Studentpage> {
                   Text('Name: ${widget.name}',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  Text('Email: ${widget.email}',
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                   Text('Roll no 83',
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
