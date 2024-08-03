@@ -13,6 +13,11 @@ import 'Timetable.dart';
 import 'Viewprofile.dart';
 
 class Studentpage extends StatefulWidget {
+  final String name;
+  final String email;
+
+  Studentpage({required this.name, required this.email});
+
   @override
   _StudentpageState createState() => _StudentpageState();
 }
@@ -60,9 +65,11 @@ class _StudentpageState extends State<Studentpage> {
         drawer: AppDrawer(
           profileImagePath: _currentProfileImagePath,
           onImageChanged: _updateImage,
-          studentName: '',
-          studentRoll: '',
-          studentSemester: '',
+          studentName: widget.name,
+          studentRoll: '83', // Use dynamic data if available
+          studentSemester: '8th', // Use dynamic data if available
+          name: widget.name,
+          email: widget.email,
         ),
         body: Stack(
           children: [
@@ -136,7 +143,8 @@ class _StudentpageState extends State<Studentpage> {
                         radius: 150,
                         backgroundImage: _currentProfileImagePath.isNotEmpty
                             ? FileImage(File(_currentProfileImagePath))
-                            : AssetImage('assets/images/girlStudent.png') as ImageProvider,
+                            : AssetImage('assets/images/girlStudent.png')
+                                as ImageProvider,
                       ),
                       actions: <Widget>[
                         TextButton(
@@ -156,7 +164,8 @@ class _StudentpageState extends State<Studentpage> {
                   radius: 40,
                   backgroundImage: _currentProfileImagePath.isNotEmpty
                       ? FileImage(File(_currentProfileImagePath))
-                      : AssetImage('assets/images/girlStudent.png') as ImageProvider,
+                      : AssetImage('assets/images/girlStudent.png')
+                          as ImageProvider,
                 ),
               ),
             ),
@@ -165,9 +174,18 @@ class _StudentpageState extends State<Studentpage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Ateeqa Yasmeen', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  Text('Roll no 83', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                  Text('Semester 8th', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  Text('Name: ${widget.name}',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Text('Email: ${widget.email}',
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  Text('Roll no 83',
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  Text('Semester 8th',
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
@@ -192,15 +210,18 @@ class _StudentpageState extends State<Studentpage> {
           buildGridItem(context, Icons.fact_check_sharp, 'Fee', Fee()),
           buildGridItem(context, Icons.call, 'Community', Community()),
           buildGridItem(context, Icons.access_alarm, 'Timetable', Timetable()),
-          buildGridItem(context, Icons.perm_contact_calendar_outlined, 'Attendance', Attendance()),
+          buildGridItem(context, Icons.perm_contact_calendar_outlined,
+              'Attendance', Attendance()),
           buildGridItem(context, Icons.calendar_month, 'Courses', Courses()),
-          buildGridItem(context, Icons.notification_add, 'Notifications', Notifications()),
+          buildGridItem(context, Icons.notification_add, 'Notifications',
+              Notifications()),
         ],
       ),
     );
   }
 
-  Widget buildGridItem(BuildContext context, IconData icon, String title, Widget page) {
+  Widget buildGridItem(
+      BuildContext context, IconData icon, String title, Widget page) {
     return InkWell(
       onTap: () {
         if (title == 'View Profile') {
@@ -238,7 +259,8 @@ class _StudentpageState extends State<Studentpage> {
           children: [
             Icon(icon, size: 50, color: Color(0xff087ebd)),
             SizedBox(height: 10),
-            Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+            Text(title,
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

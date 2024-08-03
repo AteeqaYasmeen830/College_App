@@ -11,6 +11,8 @@ class AppDrawer extends StatefulWidget {
   final String studentSemester;
   final String profileImagePath;
   final Function(String) onImageChanged;
+  final String name;
+  final String email;
 
   AppDrawer({
     required this.studentName,
@@ -18,6 +20,8 @@ class AppDrawer extends StatefulWidget {
     required this.studentSemester,
     required this.profileImagePath,
     required this.onImageChanged,
+    required this.name,
+    required this.email,
   });
 
   @override
@@ -73,7 +77,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         backgroundImage: _currentProfileImagePath.isNotEmpty
                             ? FileImage(File(_currentProfileImagePath))
                             : AssetImage('assets/images/girlStudent.png')
-                        as ImageProvider,
+                                as ImageProvider,
                       ),
                     ),
                     SizedBox(height: 10),
@@ -113,7 +117,8 @@ class _AppDrawerState extends State<AppDrawer> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Viewprofile(onImageChanged: (newImagePath) {
+                  builder: (context) =>
+                      Viewprofile(onImageChanged: (newImagePath) {
                     setState(() {
                       _currentProfileImagePath = newImagePath;
                     });
@@ -141,7 +146,8 @@ class _AppDrawerState extends State<AppDrawer> {
     );
   }
 
-  ListTile buildListTile(IconData icon, String title, BuildContext context, Function() onTap) {
+  ListTile buildListTile(
+      IconData icon, String title, BuildContext context, Function() onTap) {
     return ListTile(
       leading: Icon(icon, color: Colors.white),
       title: Text(

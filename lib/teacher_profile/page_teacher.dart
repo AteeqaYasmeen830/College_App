@@ -9,6 +9,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
 class TeacherPage extends StatefulWidget {
+  final String name;
+  final String email;
+
+  TeacherPage({required this.name, required this.email});
   @override
   _TeacherPageState createState() => _TeacherPageState();
 }
@@ -39,7 +43,8 @@ class _TeacherPageState extends State<TeacherPage> {
   }
 
   Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _profileImage = File(pickedFile.path);
@@ -107,59 +112,48 @@ class _TeacherPageState extends State<TeacherPage> {
 
   Widget buildMiddleContainer() {
     return Container(
-      width: 340,
-      height: 160,
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            spreadRadius: 2,
-            blurRadius: 5,
-          ),
-        ],
-      ),
-      transform: Matrix4.translationValues(0, -40, 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: _pickImage,
-            child: CircleAvatar(
-              radius: 40,
-              backgroundImage: _profileImage != null
-                  ? FileImage(_profileImage!)
-                  : AssetImage('assets/images/girlStudent.png') as ImageProvider,
+        width: 340,
+        height: 160,
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              spreadRadius: 2,
+              blurRadius: 5,
             ),
-          ),
-          SizedBox(width: 20),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Mam Sadaf',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'RobotoSlab-VariableFont',
-                  color: Colors.black,
-                ),
+          ],
+        ),
+        transform: Matrix4.translationValues(0, -40, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: _pickImage,
+              child: CircleAvatar(
+                radius: 40,
+                backgroundImage: _profileImage != null
+                    ? FileImage(_profileImage!)
+                    : AssetImage('assets/images/girlStudent.png')
+                        as ImageProvider,
               ),
-              Text(
-                'HOD BSIT',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+            ),
+            SizedBox(width: 20),
+            Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Name: ${widget.name}',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Text('Email: ${widget.email}',
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                ]),
+          ],
+        ));
   }
 
   Widget buildBottomContainer(BuildContext context) {
@@ -172,15 +166,18 @@ class _TeacherPageState extends State<TeacherPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                buildContainer(context, Icons.add_task, 'Attendance', AttendenceT()),
-                buildContainer(context, Icons.event, 'Notifications', NotificationT()),
+                buildContainer(
+                    context, Icons.add_task, 'Attendance', AttendenceT()),
+                buildContainer(
+                    context, Icons.event, 'Notifications', NotificationT()),
               ],
             ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                buildContainer(context, Icons.fact_check_sharp, 'Timetable', TimetableT()),
+                buildContainer(
+                    context, Icons.fact_check_sharp, 'Timetable', TimetableT()),
                 buildContainer(context, Icons.call, 'Community', CommunityT()),
               ],
             ),
@@ -190,7 +187,8 @@ class _TeacherPageState extends State<TeacherPage> {
     );
   }
 
-  Widget buildContainer(BuildContext context, IconData icon, String title, Widget page) {
+  Widget buildContainer(
+      BuildContext context, IconData icon, String title, Widget page) {
     return InkWell(
       onTap: () {
         Navigator.push(

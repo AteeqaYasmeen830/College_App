@@ -1,8 +1,7 @@
-import 'package:college_app/teacher_profile/page_teacher.dart';
 import 'package:flutter/material.dart';
+import 'package:college_app/teacher_profile/page_teacher.dart';
 import 'package:college_app/Loginpage.dart';
-import 'Student_profile/Studentpage.dart';
-
+import 'package:college_app/Student_profile/Studentpage.dart';
 
 class Signuppage extends StatefulWidget {
   @override
@@ -12,6 +11,9 @@ class Signuppage extends StatefulWidget {
 class _SignuppageState extends State<Signuppage> {
   final _formKey = GlobalKey<FormState>();
   String? _selectedRole;
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +66,7 @@ class _SignuppageState extends State<Signuppage> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: TextFormField(
+                              controller: _emailController,
                               decoration: InputDecoration(
                                 labelText: 'Email',
                                 border: OutlineInputBorder(
@@ -75,7 +78,8 @@ class _SignuppageState extends State<Signuppage> {
                                     color: Color(0xff087ebd),
                                   ),
                                 ),
-                                suffixIcon: Icon(Icons.email, color: Color(0xff087ebd)),
+                                suffixIcon:
+                                    Icon(Icons.email, color: Color(0xff087ebd)),
                                 labelStyle: TextStyle(color: Color(0xff087ebd)),
                               ),
                               style: TextStyle(color: Color(0xff087ebd)),
@@ -95,6 +99,7 @@ class _SignuppageState extends State<Signuppage> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: TextFormField(
+                              controller: _passwordController,
                               decoration: InputDecoration(
                                 labelText: 'Password',
                                 border: OutlineInputBorder(
@@ -106,7 +111,8 @@ class _SignuppageState extends State<Signuppage> {
                                     color: Color(0xff087ebd),
                                   ),
                                 ),
-                                suffixIcon: Icon(Icons.lock, color: Color(0xff087ebd)),
+                                suffixIcon:
+                                    Icon(Icons.lock, color: Color(0xff087ebd)),
                                 labelStyle: TextStyle(color: Color(0xff087ebd)),
                               ),
                               style: TextStyle(color: Color(0xff087ebd)),
@@ -122,8 +128,9 @@ class _SignuppageState extends State<Signuppage> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: TextFormField(
+                              controller: _nameController,
                               decoration: InputDecoration(
-                                labelText: 'User Name',
+                                labelText: 'Name',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none,
@@ -133,13 +140,14 @@ class _SignuppageState extends State<Signuppage> {
                                     color: Color(0xFF0077B6),
                                   ),
                                 ),
-                                suffixIcon: Icon(Icons.person, color: Color(0xFF0077B6)),
+                                suffixIcon: Icon(Icons.person,
+                                    color: Color(0xFF0077B6)),
                                 labelStyle: TextStyle(color: Color(0xFF0077B6)),
                               ),
                               style: TextStyle(color: Color(0xFF0077B6)),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter your username';
+                                  return 'Please enter your name';
                                 }
                                 return null;
                               },
@@ -155,7 +163,8 @@ class _SignuppageState extends State<Signuppage> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xFF0077B6)),
+                                  borderSide:
+                                      BorderSide(color: Color(0xFF0077B6)),
                                 ),
                                 labelStyle: TextStyle(color: Color(0xFF0077B6)),
                               ),
@@ -163,9 +172,9 @@ class _SignuppageState extends State<Signuppage> {
                               iconEnabledColor: Color(0xFF0077B6),
                               items: ['Student', 'Teacher']
                                   .map((role) => DropdownMenuItem<String>(
-                                value: role,
-                                child: Text(role),
-                              ))
+                                        value: role,
+                                        child: Text(role),
+                                      ))
                                   .toList(),
                               onChanged: (value) {
                                 setState(() {
@@ -189,24 +198,34 @@ class _SignuppageState extends State<Signuppage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Studentpage()),
+                                          builder: (context) => Studentpage(
+                                                name: _nameController.text,
+                                                email: _emailController.text,
+                                              )),
                                     );
                                   } else if (_selectedRole == 'Teacher') {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => TeacherPage()),
+                                          builder: (context) => TeacherPage(
+                                                name: _nameController.text,
+                                                email: _emailController.text,
+                                              )),
                                     );
                                   }
                                 }
                               },
-                              child: Text('Sign Up',style: TextStyle(color: Colors.white),),
+                              child: Text(
+                                'Sign Up',
+                                style: TextStyle(color: Colors.white),
+                              ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xFF0077B6),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 15),
                               ),
                             ),
                           ),
@@ -215,8 +234,7 @@ class _SignuppageState extends State<Signuppage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Loginpage()
-                                ),
+                                    builder: (context) => Loginpage()),
                               );
                             },
                             child: Text(
