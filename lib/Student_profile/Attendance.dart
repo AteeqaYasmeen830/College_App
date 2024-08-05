@@ -15,7 +15,7 @@ class Attendance extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF0077B6),
+          backgroundColor: Color(0xff1b9bda), // Updated color
           title: Text(
             'Attendance',
             style: TextStyle(color: Colors.white),
@@ -30,7 +30,7 @@ class Attendance extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(0xFF0077B6).withOpacity(0.9),
+                Color(0xff1b9bda).withOpacity(0.6), // Updated color
                 Colors.white.withOpacity(0.9),
               ],
               begin: Alignment.topCenter,
@@ -68,11 +68,11 @@ class Attendance extends StatelessWidget {
                         ),
                         title: Text(
                           'Date: ${attendanceRecords[index]['date']}',
-                          style: TextStyle(color: Color(0xFF0077B6)),
+                          style: TextStyle(color: Color(0xff1b9bda)), // Updated color
                         ),
                         subtitle: Text(
                           'Status: ${attendanceRecords[index]['status']}',
-                          style: TextStyle(color: Color(0xFF0077B6)),
+                          style: TextStyle(color: Color(0xff1b9bda)), // Updated color
                         ),
                       ),
                     );
@@ -81,9 +81,8 @@ class Attendance extends StatelessWidget {
               ),
             ],
           ),
-    )
-      )
+        ),
+      ),
     );
   }
 }
-

@@ -36,14 +36,14 @@ class Notifications extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Notifications',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          title: Center(
+            child: Text(
+              'Notifications',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           ),
-          backgroundColor: Color(0xFF0077B6),
-          iconTheme: IconThemeData(
-            color: Colors.white,
-          ),
+          backgroundColor: Color(0xff1b9bda),
+          automaticallyImplyLeading: false,
         ),
         body: notifications.isNotEmpty
             ? ListView.builder(
@@ -62,7 +62,7 @@ class Notifications extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF0077B6), Color(0xFF00B4D8)],
+                      colors: [Color(0xff1b9bda), Color(0xFF00B4D8)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -81,7 +81,7 @@ class Notifications extends StatelessWidget {
                           ),
                           child: Icon(
                             Icons.notifications,
-                            color: Color(0xFF0077B6),
+                            color: Color(0xff1b9bda),
                             size: 30.0,
                           ),
                         ),
@@ -126,7 +126,7 @@ class Notifications extends StatelessWidget {
             'No notifications available',
             style: TextStyle(
               fontSize: 18.0,
-              color: Color(0xFF0077B6),
+              color: Color(0xff1b9bda),
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -149,7 +149,7 @@ class NotificationDetailPage extends StatelessWidget {
           notification['title']!,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xFF0077B6),
+        backgroundColor: Color(0xff1b9bda),
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
@@ -164,7 +164,7 @@ class NotificationDetailPage extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24.0,
-                color: Color(0xFF0077B6),
+                color: Color(0xff1b9bda),
               ),
             ),
             SizedBox(height: 16.0),
@@ -195,7 +195,7 @@ class ExamScheduleDetailPage extends StatelessWidget {
           notification['title']!,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xFF0077B6),
+        backgroundColor: Color(0xff1b9bda),
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
@@ -210,7 +210,7 @@ class ExamScheduleDetailPage extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24.0,
-                color: Color(0xFF0077B6),
+                color: Color(0xff1b9bda),
               ),
             ),
             SizedBox(height: 16.0),
@@ -291,7 +291,7 @@ class ExamScheduleCard extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,
-                color: Color(0xFF0077B6),
+                color: Color(0xff1b9bda),
               ),
             ),
             SizedBox(height: 8.0),
@@ -330,7 +330,7 @@ class HolidayNoticeDetailPage extends StatelessWidget {
           notification['title']!,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xFF0077B6),
+        backgroundColor: Color(0xff1b9bda),
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
@@ -345,7 +345,7 @@ class HolidayNoticeDetailPage extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24.0,
-                color: Color(0xFF0077B6),
+                color: Color(0xff1b9bda),
               ),
             ),
             SizedBox(height: 16.0),

@@ -16,7 +16,7 @@ class Timetable extends StatelessWidget{
       child: Scaffold(
         appBar: AppBar(
           title: Text('Timetable',style: TextStyle(color: Colors.white),),
-          backgroundColor:  Color(0xFF0077B6),
+          backgroundColor:  Color(0xff1b9bda), // Updated color
           iconTheme: IconThemeData(
             color: Colors.white,
           ),
@@ -36,11 +36,11 @@ class Timetable extends StatelessWidget{
                 child:Container(
                   child: Card(
                     elevation: 10,
-                    shadowColor: Color(0xFF0077B6),
+                    shadowColor: Color(0xff1b9bda), // Updated color
                     child:Container(
                       height: 70,
                       width:double.infinity,
-                      child:Center(child: Text('Monday',style: TextStyle(color: Color(0xFF0077B6),fontWeight: FontWeight.bold,fontSize: 20),)) ,
+                      child:Center(child: Text('Monday',style: TextStyle(color: Color(0xff1b9bda),fontWeight: FontWeight.bold,fontSize: 20),)) ,
                     ),
                   ),
                 ),
@@ -52,11 +52,11 @@ class Timetable extends StatelessWidget{
                 child:Container(
                   child: Card(
                     elevation:10,
-                    shadowColor: Color(0xFF0077B6),
+                    shadowColor: Color(0xff1b9bda), // Updated color
                     child:Container(
                       height: 70,
                       width:double.infinity,
-                      child:Center(child: Text('Tuesday',style: TextStyle(color: Color(0xFF0077B6),fontWeight: FontWeight.bold,fontSize: 20),)) ,
+                      child:Center(child: Text('Tuesday',style: TextStyle(color: Color(0xff1b9bda),fontWeight: FontWeight.bold,fontSize: 20),)) ,
                     ),
                   ),
                 ),
@@ -68,11 +68,11 @@ class Timetable extends StatelessWidget{
                 child:Container(
                   child: Card(
                     elevation: 10,
-                    shadowColor: Color(0xFF0077B6),
+                    shadowColor: Color(0xff1b9bda), // Updated color
                     child:Container(
                       height: 70,
                       width:double.infinity,
-                      child:Center(child: Text('Wednesday',style: TextStyle(color: Color(0xFF0077B6),fontWeight: FontWeight.bold,fontSize: 20),)) ,
+                      child:Center(child: Text('Wednesday',style: TextStyle(color: Color(0xff1b9bda),fontWeight: FontWeight.bold,fontSize: 20),)) ,
                     ),
                   ),
                 ),
@@ -84,11 +84,11 @@ class Timetable extends StatelessWidget{
                 child:Container(
                   child: Card(
                     elevation: 10,
-                    shadowColor: Color(0xFF0077B6),
+                    shadowColor: Color(0xff1b9bda), // Updated color
                     child:Container(
                       height: 70,
                       width:double.infinity,
-                      child:Center(child: Text('Thursday',style: TextStyle(color: Color(0xFF0077B6),fontWeight: FontWeight.bold,fontSize: 20),)) ,
+                      child:Center(child: Text('Thursday',style: TextStyle(color: Color(0xff1b9bda),fontWeight: FontWeight.bold,fontSize: 20),)) ,
                     ),
                   ),
                 ),
@@ -100,11 +100,11 @@ class Timetable extends StatelessWidget{
                 child:Container(
                   child: Card(
                     elevation: 10,
-                    shadowColor: Color(0xFF0077B6),
+                    shadowColor: Color(0xff1b9bda), // Updated color
                     child:Container(
                       height: 70,
                       width:double.infinity,
-                      child:Center(child: Text('Friday',style: TextStyle(color: Color(0xFF0077B6),fontSize: 20,fontWeight: FontWeight.bold,),)) ,
+                      child:Center(child: Text('Friday',style: TextStyle(color: Color(0xff1b9bda),fontSize: 20,fontWeight: FontWeight.bold,),)) ,
                     ),
                   ),
                 ),
@@ -116,11 +116,11 @@ class Timetable extends StatelessWidget{
                 child:Container(
                   child: Card(
                     elevation: 10,
-                    shadowColor: Color(0xFF0077B6),
+                    shadowColor: Color(0xff1b9bda), // Updated color
                     child:Container(
                       height: 70,
                       width:double.infinity,
-                      child:Center(child: Text('Saturday',style: TextStyle(color: Color(0xFF0077B6),fontWeight: FontWeight.bold,fontSize: 20),)) ,
+                      child:Center(child: Text('Saturday',style: TextStyle(color: Color(0xff1b9bda),fontWeight: FontWeight.bold,fontSize: 20),)) ,
                     ),
                   ),
                 ),
@@ -132,11 +132,11 @@ class Timetable extends StatelessWidget{
                 child:Container(
                   child: Card(
                     elevation: 10,
-                    shadowColor: Color(0xFF0077B6),
+                    shadowColor: Color(0xff1b9bda), // Updated color
                     child:Container(
                       height: 70,
                       width:double.infinity,
-                      child:Center(child: Text('Sunday',style: TextStyle(color: Color(0xFF0077B6),fontWeight: FontWeight.bold,fontSize: 20),)) ,
+                      child:Center(child: Text('Sunday',style: TextStyle(color: Color(0xff1b9bda),fontWeight: FontWeight.bold,fontSize: 20),)) ,
                     ),
                   ),
                 ),

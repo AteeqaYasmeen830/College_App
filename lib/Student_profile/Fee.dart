@@ -13,7 +13,7 @@ class Fee extends StatelessWidget {
           iconTheme: IconThemeData(
             color: Colors.white,
           ),
-          backgroundColor: Color(0xFF0077B6),
+          backgroundColor: Color(0xff1b9bda), // Updated color
         ),
         body: Stack(
           children: [
@@ -35,7 +35,7 @@ class Fee extends StatelessWidget {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Color(0xFF0077B6).withOpacity(0.9),
+                            Color(0xff1b9bda).withOpacity(0.9), // Updated color
                             Colors.white.withOpacity(0.6),
                           ],
                           begin: Alignment.topCenter,
@@ -80,7 +80,11 @@ class Fee extends StatelessWidget {
                           SizedBox(height: 20),
                           Text(
                             "Pay using:",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                           SizedBox(height: 20),
                           PaymentButton(
@@ -131,7 +135,11 @@ class FeeDetailRow extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,  color: Colors.white,),
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
         Text(
           value,
@@ -154,8 +162,8 @@ class PaymentButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: Color(0xFF0077B6),
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+        backgroundColor: Color(0xff1b9bda), // Updated color
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         textStyle: TextStyle(fontSize: 20),
       ),
       child: Text(label),

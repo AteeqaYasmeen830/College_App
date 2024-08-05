@@ -11,7 +11,7 @@ class Event extends StatelessWidget {
             'Event',
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Color(0xFF0077B6),
+          backgroundColor: Color(0xff1b9bda), // Updated color
           iconTheme: IconThemeData(
             color: Colors.white,
           ),
@@ -22,7 +22,7 @@ class Event extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(0xFF0077B6).withOpacity(0.9),
+                Color(0xff1b9bda).withOpacity(0.6), // Updated color
                 Colors.white.withOpacity(0.9),
               ],
               begin: Alignment.topCenter,
@@ -40,7 +40,7 @@ class Event extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.white, // Updated color
                     ),
                   ),
                 ),
@@ -128,14 +128,14 @@ class EventCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF0077B6),
+                      color: Color(0xff1b9bda), // Updated color
                     ),
                   ),
                   SizedBox(height: 8),
                   Text(
                     'Date: $eventDate',
                     style: TextStyle(
-                      color: Color(0xFF0077B6),
+                      color: Color(0xff1b9bda), // Updated color
                     ),
                   ),
                   SizedBox(height: 8),
@@ -143,7 +143,7 @@ class EventCard extends StatelessWidget {
                     eventDescription,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Color(0xFF0077B6),
+                      color: Color(0xff1b9bda), // Updated color
                     ),
                   ),
                 ],

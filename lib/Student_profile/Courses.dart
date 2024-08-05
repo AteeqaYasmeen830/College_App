@@ -127,7 +127,7 @@ class _CoursesState extends State<Courses> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF0077B6),
+          backgroundColor: Color(0xff1b9bda), // Updated color
           title: Text(
             'Courses',
             style: TextStyle(color: Colors.white),
@@ -160,7 +160,7 @@ class _CoursesState extends State<Courses> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xFF0077B6).withOpacity(0.9),
+            Color(0xff1b9bda).withOpacity(0.6), // Updated color
             Colors.white.withOpacity(0.9),
           ],
           begin: Alignment.topCenter,
@@ -177,15 +177,15 @@ class _CoursesState extends State<Courses> {
             child: ExpansionTile(
               title: Text(
                 department,
-                style: TextStyle(color: Color(0xFF0077B6), fontWeight: FontWeight.bold),
+                style: TextStyle(color: Color(0xff1b9bda), fontWeight: FontWeight.bold), // Updated color
               ),
-              iconColor: Color(0xFF0077B6),
-              collapsedIconColor: Color(0xFF0077B6),
+              iconColor: Color(0xff1b9bda), // Updated color
+              collapsedIconColor: Color(0xff1b9bda), // Updated color
               children: semesters.keys.map((semester) {
                 return ListTile(
                   title: Text(
                     semester,
-                    style: TextStyle(color: Color(0xFF0077B6)),
+                    style: TextStyle(color: Color(0xff1b9bda)), // Updated color
                   ),
                   onTap: () {
                     setState(() {
@@ -217,15 +217,15 @@ class _CoursesState extends State<Courses> {
             child: ExpansionTile(
               title: Text(
                 semester,
-                style: TextStyle(color: Color(0xFF0077B6),fontWeight: FontWeight.bold),
+                style: TextStyle(color: Color(0xff1b9bda),fontWeight: FontWeight.bold), // Updated color
               ),
-              iconColor: Color(0xFF0077B6),
-              collapsedIconColor: Color(0xFF0077B6),
+              iconColor: Color(0xff1b9bda), // Updated color
+              collapsedIconColor: Color(0xff1b9bda), // Updated color
               children: subjects.map((subject) {
                 return ListTile(
                   title: Text(
                     subject,
-                    style: TextStyle(color: Color(0xFF0077B6)),
+                    style: TextStyle(color: Color(0xff1b9bda)), // Updated color
                   ),
                   onTap: () {
                     setState(() {
@@ -253,7 +253,7 @@ class _CoursesState extends State<Courses> {
           return ListTile(
             title: Text(
               subject,
-              style: TextStyle(color:Color(0xFF0077B6)),
+              style: TextStyle(color: Color(0xff1b9bda)), // Updated color
             ),
             onTap: () {
               setState(() {
@@ -285,7 +285,7 @@ class _CoursesState extends State<Courses> {
             : Center(
           child: Text(
             'No image available',
-            style: TextStyle(color: Color(0xFF0077B6), fontSize: 18),
+            style: TextStyle(color: Color(0xff1b9bda), fontSize: 18), // Updated color
           ),
         ),
       ),
