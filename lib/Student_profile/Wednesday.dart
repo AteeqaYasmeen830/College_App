@@ -19,7 +19,7 @@ class Wednesday extends StatelessWidget{
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-           color: Colors.white,
+            color: Colors.white,
           ),
           child: ListView.separated(itemBuilder:(context,index){
             return ListTile(
