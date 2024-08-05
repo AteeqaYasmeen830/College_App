@@ -23,17 +23,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  void initState() {
+  void initState(){
     super.initState();
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Loginpage(),
-          ));
-    });
+    Timer( Duration(seconds: 3),(){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Loginpage(),));
+    }
+    );
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,7 +37,7 @@ class MyHomePageState extends State<MyHomePage> {
         body: Stack(
           children: [
             Positioned(
-              top: -160,
+              top:-160,
               left: -160,
               child: Container(
                 height: 440,
@@ -51,28 +47,16 @@ class MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 200, left: 180),
-                      child: Text(
-                        'College Link',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 35,
-                            color: Colors.white),
-                      ),
+                      padding: EdgeInsets.only(top: 200,left: 180),
+                      child: Text('College Link',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 35,color: Colors.white),),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 20, left: 180),
-                      child: Text(
-                        'Spark your',
-                        style: TextStyle(fontSize: 25, color: Colors.white),
-                      ),
+                      padding: EdgeInsets.only(top: 20,left: 180),
+                      child: Text('Spark your' ,style: TextStyle(fontSize: 25, color: Colors.white ),),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 5, left: 180),
-                      child: Text(
-                        'Learning journey',
-                        style: TextStyle(fontSize: 25, color: Colors.white),
-                      ),
+                      padding: EdgeInsets.only(top: 5,left: 180),
+                      child: Text('Learning journey' ,style: TextStyle(fontSize: 25, color: Colors.white ),),
                     ),
                   ],
                 ),
