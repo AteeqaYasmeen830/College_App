@@ -90,7 +90,7 @@ class _AssignmentState extends State<Assignment> {
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-           color: Colors.white,
+            color: Colors.white,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
