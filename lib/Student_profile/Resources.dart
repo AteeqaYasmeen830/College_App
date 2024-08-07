@@ -28,7 +28,7 @@ class Resources extends StatelessWidget {
           iconTheme: IconThemeData(
             color: Colors.white,
           ),
-          backgroundColor: Color(0xFF0077B6),
+          backgroundColor: Color(0xff1b9bda),
         ),
         body: ListView.builder(
           padding: EdgeInsets.all(16),
@@ -75,7 +75,7 @@ class ResourceDetail extends StatelessWidget {
           resource.title,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Color(0xFF0077B6),
+            color: Color(0xff1b9bda),
             fontSize: 18,
           ),
         ),
@@ -89,7 +89,7 @@ class ResourceDetail extends StatelessWidget {
             ),
           ),
         ),
-        trailing: Icon(Icons.arrow_forward, color: Color(0xFF0077B6)),
+        trailing: Icon(Icons.arrow_forward, color: Color(0xff1b9bda)),
         onTap: () {
           Navigator.push(
             context,
@@ -120,7 +120,7 @@ class ResourceDetailPage extends StatelessWidget {
           iconTheme: IconThemeData(
             color: Colors.white,
           ),
-          backgroundColor: Color(0xFF0077B6),
+          backgroundColor: Color(0xff1b9bda),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -131,7 +131,7 @@ class ResourceDetailPage extends StatelessWidget {
                 resource.title,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF0077B6),
+                  color: Color(0xff1b9bda),
                   fontSize: 24,
                 ),
               ),

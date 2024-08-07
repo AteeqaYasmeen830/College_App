@@ -62,7 +62,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(900),
-                  color: Color(0xff087ebd),
+                  color: Color(0xff1b9bda),
                 ),
               ),
             ),
@@ -74,7 +74,7 @@ class MyHomePageState extends State<MyHomePage> {
                 width: 140,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(900),
-                  color: Color(0xff087ebd),
+                  color: Color(0xff1b9bda),
                 ),
                 ),
               ),

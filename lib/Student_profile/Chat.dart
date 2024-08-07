@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Chart extends StatelessWidget {
+class Chat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: Text('Chat',style: TextStyle(color: Colors.white,),),
-          backgroundColor: Color(0xFF0077B6),
+          backgroundColor: Color(0xff1b9bda),
           iconTheme: IconThemeData(
             color: Colors.white,
           ),
@@ -72,7 +72,7 @@ class ChatMessage extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: isSentByMe ? Color(0xFF0077B6) : Colors.grey[300],
+          color: isSentByMe ? Color(0xff1b9bda) : Colors.grey[300],
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(

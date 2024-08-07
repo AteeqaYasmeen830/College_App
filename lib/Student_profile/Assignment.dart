@@ -77,7 +77,7 @@ class _AssignmentState extends State<Assignment> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF0077B6),
+          backgroundColor: Color(0xff1b9bda),
           iconTheme: IconThemeData(
             color: Colors.white,
           ),
@@ -100,7 +100,7 @@ class _AssignmentState extends State<Assignment> {
                     ? Center(
                   child: Text(
                     'No file selected',
-                    style: TextStyle(fontSize: 20, color:Color(0xFF0077B6)),
+                    style: TextStyle(fontSize: 20, color:Color(0xff1b9bda)),
                   ),
                 )
                     : ListView.builder(
@@ -111,7 +111,7 @@ class _AssignmentState extends State<Assignment> {
                       child: ListTile(
                         title: Text(
                           _files[index].path.split('/').last,
-                          style: TextStyle(color:Color(0xFF0077B6)),
+                          style: TextStyle(color:Color(0xff1b9bda)),
                         ),
                         trailing: IconButton(
                           icon: Icon(Icons.delete, color: Colors.red),
@@ -126,12 +126,12 @@ class _AssignmentState extends State<Assignment> {
               Container(
                 padding: EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                  color: Color(0xFF0077B6),
+                  color: Color(0xff1b9bda),
                 ),
                 child: ElevatedButton(
                   onPressed: _uploadFile,
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Color(0xFF0077B6),
+                    foregroundColor: Color(0xff1b9bda),
                     backgroundColor: Colors.white, // Text color
                   ),
                   child: Text('Upload File'),

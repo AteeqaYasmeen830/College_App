@@ -47,31 +47,56 @@ class _ViewprofileState extends State<Viewprofile> {
     }
   }
 
+  Future<void> _deleteImage() async {
+    setState(() {
+      _imageFile = null;
+    });
+    await _prefs.remove('profile_image');
+    widget.onImageChanged(''); // Notify Studentpage of image change
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff087ebd),
-        title: Text('View Profile',style: TextStyle(color: Colors.white),),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: () {
-                _showImagePicker(context);
-              },
-              child: CircleAvatar(
-                radius: 50,
-                backgroundImage: _imageFile != null
-                    ? FileImage(_imageFile!)
-                    : AssetImage('assets/images/girlStudent.png') as ImageProvider,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xff1b9bda), // Updated color
+          title: Text('View Profile', style: TextStyle(color: Colors.white)),
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () {
+                  _showImagePicker(context);
+                },
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Colors.grey[300], // Placeholder background color
+                  backgroundImage: _imageFile != null
+                      ? FileImage(_imageFile!)
+                      : AssetImage('assets/images/defaultProfile.png') as ImageProvider,
+                  child: _imageFile == null
+                      ? Icon(Icons.person, size: 50, color: Colors.white) // Placeholder icon
+                      : null,
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Text('Change Profile Image'),
-          ],
+              SizedBox(height: 20),
+              Text('Change Profile Image'),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _deleteImage,
+                child: Text('Delete Profile Image',style: TextStyle(color: Colors.white),),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff1b9bda), // Updated color
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

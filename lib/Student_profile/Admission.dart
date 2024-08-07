@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:open_file/open_file.dart';
 
 class Admission extends StatefulWidget {
   @override
@@ -61,10 +62,8 @@ class _AdmissionState extends State<Admission> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Admission', style: TextStyle(color: Colors.white)),
-          backgroundColor: Color(0xFF0077B6),
-          iconTheme: IconThemeData(
-            color: Colors.white
-          ),
+          backgroundColor: Color(0xff1b9bda),
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: Stack(
           children: [
@@ -74,7 +73,7 @@ class _AdmissionState extends State<Admission> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFF0077B6).withOpacity(0.9),
+                    Color(0xff1b9bda).withOpacity(0.6),
                     Colors.white.withOpacity(0.7),
                   ],
                   begin: Alignment.topCenter,
@@ -102,12 +101,12 @@ class _AdmissionState extends State<Admission> {
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF0077B6),
+                                color: Color(0xff1b9bda),
                               ),
                             ),
                             SizedBox(height: 20),
                             buildTextField('First name *'),
-                            buildTextField('last name *'),
+                            buildTextField('Last name *'),
                             buildTextField('Father name *'),
                             buildEmailField(),
                             buildTextField('Phone Number *', keyboardType: TextInputType.phone),
@@ -126,13 +125,13 @@ class _AdmissionState extends State<Admission> {
                             SizedBox(height: 10),
                             Text(
                               'Upload Picture',
-                              style: TextStyle(color: Color(0xFF0077B6), fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Color(0xff1b9bda), fontWeight: FontWeight.bold),
                             ),
                             SizedBox(height: 10),
                             ElevatedButton(
                               onPressed: _pickImage,
                               child: Text('Select Picture', style: TextStyle(color: Colors.white)),
-                              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF0077B6)),
+                              style: ElevatedButton.styleFrom(backgroundColor: Color(0xff1b9bda)),
                             ),
                             _selectedPicture != null
                                 ? Column(
@@ -148,24 +147,29 @@ class _AdmissionState extends State<Admission> {
                             SizedBox(height: 20),
                             Text(
                               'Upload Documents',
-                              style: TextStyle(color: Color(0xFF0077B6), fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Color(0xff1b9bda), fontWeight: FontWeight.bold),
                             ),
                             SizedBox(height: 10),
                             ElevatedButton(
                               onPressed: _pickDocuments,
                               child: Text('Select Documents', style: TextStyle(color: Colors.white)),
-                              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF0077B6)),
+                              style: ElevatedButton.styleFrom(backgroundColor: Color(0xff1b9bda)),
                             ),
                             _selectedDocuments.isNotEmpty
                                 ? Column(
                               children: _selectedDocuments.map((file) {
                                 int index = _selectedDocuments.indexOf(file);
                                 return ListTile(
-                                  title: Text(file.path.split('/').last, style: TextStyle(color: Color(0xFF0077B6))),
+                                  leading: Icon(
+                                    Icons.insert_drive_file,
+                                    color: Color(0xff1b9bda),
+                                  ),
+                                  title: Text(file.path.split('/').last, style: TextStyle(color: Color(0xff1b9bda))),
                                   trailing: IconButton(
                                     icon: Icon(Icons.delete, color: Colors.red),
                                     onPressed: () => _removeDocument(index),
                                   ),
+                                  onTap: () => OpenFile.open(file.path),
                                 );
                               }).toList(),
                             )
@@ -187,7 +191,7 @@ class _AdmissionState extends State<Admission> {
                                 },
                                 child: Text('Submit', style: TextStyle(color: Colors.white)),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFF0077B6), // Background color
+                                  backgroundColor: Color(0xff1b9bda), // Background color
                                 ),
                               ),
                             ),
@@ -212,17 +216,23 @@ class _AdmissionState extends State<Admission> {
         keyboardType: keyboardType,
         decoration: InputDecoration(
           labelText: labelText,
-          labelStyle: TextStyle(color: Color(0xFF0077B6)),
+          labelStyle: TextStyle(color: Color(0xff1b9bda)),
           filled: true,
           fillColor: Colors.white.withOpacity(0.9),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: Color(0xFF0077B6),
-            ),
+            borderSide: BorderSide(color: Color(0xff1b9bda)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Color(0xff1b9bda)),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.red),
           ),
         ),
-        style: TextStyle(color: Color(0xFF0077B6)),
+        style: TextStyle(color: Color(0xff1b9bda)),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter your $labelText ';
@@ -240,23 +250,28 @@ class _AdmissionState extends State<Admission> {
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           labelText: 'Email *',
-          labelStyle: TextStyle(color: Color(0xFF0077B6)),
+          labelStyle: TextStyle(color: Color(0xff1b9bda)),
           filled: true,
           fillColor: Colors.white.withOpacity(0.9),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: Color(0xFF0077B6),
-            ),
+            borderSide: BorderSide(color: Color(0xff1b9bda)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Color(0xff1b9bda)),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.red),
           ),
         ),
-        style: TextStyle(color: Color(0xFF0077B6)),
+        style: TextStyle(color: Color(0xff1b9bda)),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter your Email *';
-          }
-          if (!RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$').hasMatch(value)) {
-            return 'Please enter a valid Email address';
+            return 'Please enter your email';
+          } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+            return 'Please enter a valid email address';
           }
           return null;
         },
@@ -269,38 +284,43 @@ class _AdmissionState extends State<Admission> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
         controller: _dobController,
+        readOnly: true,
+        onTap: () async {
+          DateTime? pickedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(1900),
+            lastDate: DateTime(2100),
+          );
+
+          if (pickedDate != null) {
+            setState(() {
+              _dobController.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+            });
+          }
+        },
         decoration: InputDecoration(
           labelText: 'Date of Birth *',
-          labelStyle: TextStyle(color: Color(0xFF0077B6)),
+          labelStyle: TextStyle(color: Color(0xff1b9bda)),
           filled: true,
           fillColor: Colors.white.withOpacity(0.9),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: Color(0xFF0077B6),
-            ),
+            borderSide: BorderSide(color: Color(0xff1b9bda)),
           ),
-          suffixIcon: IconButton(
-            icon: Icon(Icons.calendar_today, color: Color(0xFF0077B6)),
-            onPressed: () async {
-              DateTime? pickedDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(1900),
-                lastDate: DateTime.now(),
-              );
-              if (pickedDate != null) {
-                setState(() {
-                  _dobController.text = "${pickedDate.toLocal()}".split(' ')[0];
-                });
-              }
-            },
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Color(0xff1b9bda)),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.red),
           ),
         ),
-        style: TextStyle(color: Color(0xFF0077B6)),
+        style: TextStyle(color: Color(0xff1b9bda)),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter your Date of Birth *';
+            return 'Please enter your date of birth';
           }
           return null;
         },
@@ -308,45 +328,40 @@ class _AdmissionState extends State<Admission> {
     );
   }
 
-  Widget buildDropdownField(String labelText, List<String> items, ValueChanged<String?> onChanged, String? selectedValue) {
+  Widget buildDropdownField(
+      String labelText, List<String> items, void Function(String?)? onChanged, String? value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
           labelText: labelText,
-          labelStyle: TextStyle(color: Color(0xFF0077B6)),
+          labelStyle: TextStyle(color: Color(0xff1b9bda)),
           filled: true,
           fillColor: Colors.white.withOpacity(0.9),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: Color(0xFF0077B6),
-            ),
+            borderSide: BorderSide(color: Color(0xff1b9bda)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Color(0xff1b9bda)),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.red),
           ),
         ),
-        value: selectedValue,
-        iconEnabledColor:Color(0xFF0077B6),
+        style: TextStyle(color: Color(0xff1b9bda)),
+        value: value,
         items: items.map((String item) {
           return DropdownMenuItem<String>(
             value: item,
             child: Text(item),
           );
         }).toList(),
-        onChanged: (value) {
-          setState(() {
-            if (labelText == 'Gender') {
-              _selectedGender = value;
-            } else if (labelText == 'Course') {
-              _selectedCourse = value;
-            } else if (labelText == 'Payment Method') {
-              _selectedPaymentMethod = value;
-            }
-          });
-          onChanged(value);
-        },
-        style: TextStyle(color: Color(0xFF0077B6)),
+        onChanged: onChanged,
         validator: (value) {
-          if (value == null) {
+          if (value == null || value.isEmpty) {
             return 'Please select your $labelText';
           }
           return null;
@@ -356,17 +371,30 @@ class _AdmissionState extends State<Admission> {
   }
 
   Widget buildPaymentReferenceField() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: ElevatedButton(
-            onPressed: _pickDocuments,
-            child: Text('Attach Challan', style: TextStyle(color: Colors.white)),
-            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF0077B6)),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        controller: _paymentReferenceController,
+        decoration: InputDecoration(
+          labelText: 'Payment Reference',
+          labelStyle: TextStyle(color: Color(0xff1b9bda)),
+          filled: true,
+          fillColor: Colors.white.withOpacity(0.9),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Color(0xff1b9bda)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Color(0xff1b9bda)),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.red),
           ),
         ),
-      ],
+        style: TextStyle(color: Color(0xff1b9bda)),
+      ),
     );
   }
 }

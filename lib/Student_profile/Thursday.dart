@@ -10,7 +10,7 @@ class Thursday extends StatelessWidget{
       child: Scaffold(
           appBar: AppBar(
             title: Text('Thursday',style: TextStyle(color: Colors.white),),
-            backgroundColor:Color(0xFF0077B6),
+            backgroundColor:Color(0xff1b9bda),
             iconTheme: IconThemeData(
               color: Colors.white,
             ),
@@ -23,14 +23,14 @@ class Thursday extends StatelessWidget{
             ),
             child: ListView.separated(itemBuilder:(context,index){
               return ListTile(
-                title: Text(arrNames[index],style: TextStyle(color: Color(0xFF0077B6),),),
-                subtitle: Text(number[index],style: TextStyle(color: Color(0xFF0077B6),),),
+                title: Text(arrNames[index],style: TextStyle(color: Color(0xff1b9bda),),),
+                subtitle: Text(number[index],style: TextStyle(color: Color(0xff1b9bda),),),
               );
             },
               separatorBuilder: (context,index){
                 return Divider(
                   height: 20,
-                  color: Color(0xFF0077B6),
+                  color: Color(0xff1b9bda),
                   thickness: 2,
                 );
               },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Assignment.dart';
-import 'Chart.dart';
+import 'Chat.dart';
 import 'Resources.dart';
 import 'StudyGroup.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,14 +11,14 @@ class Community extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Community',
-            style: TextStyle(color: Colors.white),
+          title: Center(
+            child: Text(
+              'Community',
+              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+            ),
           ),
-          backgroundColor: Color(0xFF0077B6),
-          iconTheme: IconThemeData(
-            color: Colors.white,
-          ),
+          backgroundColor: Color(0xff1b9bda),
+          automaticallyImplyLeading: false,
         ),
         body: Container(
           width: double.infinity,
@@ -26,7 +26,7 @@ class Community extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(0xFF0077B6).withOpacity(0.9),
+                Color(0xff1b9bda).withOpacity(0.6),
                 Colors.white.withOpacity(0.9),
               ],
               begin: Alignment.topCenter,
@@ -36,22 +36,12 @@ class Community extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              Center(
-                child: Text(
-                  'Student Community',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              SizedBox(height: 16),
+              SizedBox(height: 10),
               CommunityCard(
                 title: 'Study Groups',
                 description: 'Collaborate with peers in study groups.',
                 icon: Icons.group,
-                color: Color(0xFF0077B6),
+                color: Color(0xff1b9bda),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -63,7 +53,7 @@ class Community extends StatelessWidget {
                 title: 'Resources',
                 description: 'Access a variety of study materials and resources.',
                 icon: Icons.book,
-                color: Color(0xFF0077B6),
+                color: Color(0xff1b9bda),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -75,11 +65,11 @@ class Community extends StatelessWidget {
                 title: 'Chat',
                 description: 'Chat with other students in real-time.',
                 icon: Icons.chat,
-                color: Color(0xFF0077B6),
+                color: Color(0xff1b9bda),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Chart()),
+                    MaterialPageRoute(builder: (context) => Chat()),
                   );
                 },
               ),
@@ -87,7 +77,7 @@ class Community extends StatelessWidget {
                 title: 'Assignment Upload',
                 description: 'Upload your assignments easily.',
                 icon: Icons.upload_file,
-                color: Color(0xFF0077B6),
+                color: Color(0xff1b9bda),
                 onTap: () {
                   Navigator.push(
                     context,

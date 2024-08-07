@@ -7,7 +7,7 @@ class StudyGroup extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Study Groups', style: TextStyle(color: Colors.white)),
-          backgroundColor: Color(0xFF0077B6),
+          backgroundColor: Color(0xff1b9bda),
           iconTheme: IconThemeData(
             color: Colors.white,
           ),
@@ -61,7 +61,7 @@ class GroupDetail extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF0077B6),
+                      color:Color(0xff1b9bda),
                     ),
                   ),
                   SizedBox(height: 8),
@@ -77,7 +77,7 @@ class GroupDetail extends StatelessWidget {
             ),
             Icon(
               Icons.arrow_forward,
-              color: Color(0xFF0077B6),
+              color: Color(0xff1b9bda),
             ),
           ],
         ),
