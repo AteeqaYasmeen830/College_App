@@ -1,185 +1,184 @@
-import 'package:college_app/teacher_profile/T_attendence.dart';
-import 'package:college_app/teacher_profile/T_community.dart';
-import 'package:college_app/teacher_profile/T_notification.dart';
-import 'package:college_app/teacher_profile/T_timetable.dart';
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
+
+import 'T_attendence.dart';
+import 'T_community.dart';
+import 'T_notification.dart';
+import 'T_timetable.dart';
 
 class TeacherPage extends StatefulWidget {
-  final String name;
-  final String email;
-
-  TeacherPage({required this.name, required this.email});
   @override
   _TeacherPageState createState() => _TeacherPageState();
 }
 
 class _TeacherPageState extends State<TeacherPage> {
-  final TextStyle textStyle = TextStyle(
-    color: Colors.white,
-    fontSize: 16,
-    fontWeight: FontWeight.bold,
-  );
-
-  File? _profileImage;
+  late SharedPreferences _prefs;
+  String _currentProfileImagePath = '';
+  int _selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _loadProfileImage();
+    _initSharedPreferences();
   }
 
-  Future<void> _loadProfileImage() async {
-    final prefs = await SharedPreferences.getInstance();
-    final imagePath = prefs.getString('profile_image');
+  Future<void> _initSharedPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+    _loadImageFromPrefs();
+  }
+
+  Future<void> _loadImageFromPrefs() async {
+    String? imagePath = _prefs.getString('profile_image');
     if (imagePath != null) {
       setState(() {
-        _profileImage = File(imagePath);
+        _currentProfileImagePath = imagePath;
       });
     }
   }
 
-  Future<void> _pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _profileImage = File(pickedFile.path);
-      });
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('profile_image', pickedFile.path);
+  void _updateImage(String newImagePath) {
+    setState(() {
+      _currentProfileImagePath = newImagePath;
+    });
+    _prefs.setString('profile_image', newImagePath);
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    _navigateToSelectedPage(index);
+  }
+
+  void _navigateToSelectedPage(int index) {
+    Widget selectedPage;
+    if (index == 1) {
+      selectedPage = NotificationT(); // Teacher Notifications
+    } else if (index == 2) {
+      selectedPage = CommunityT(); // Teacher Community
+    } else {
+      return;
     }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => selectedPage),
+    ).then((_) {
+      setState(() {
+        _selectedIndex = 0;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
           children: [
-            buildTopContainer(),
-            buildMiddleContainer(),
-            buildBottomContainer(context),
+            buildBackground(),
+            Column(
+              children: [
+                buildProfileAvatar(),
+                buildProfileCard(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: buildGrid(),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Color(0xff1b9bda),
+          unselectedItemColor: Colors.white,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notifications),
+              label: 'Notifications',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group),
+              label: 'Community',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        child: Icon(Icons.add, color: Colors.black),
-        backgroundColor: Color(0xFF00B0FF),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: buildBottomNavBar(),
     );
   }
 
-  Widget buildTopContainer() {
+  Widget buildBackground() {
     return Container(
-      height: 200,
-      decoration: BoxDecoration(
-        color: Color(0xFF00B0FF),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(60),
-          bottomRight: Radius.circular(60),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            spreadRadius: 2,
-            blurRadius: 5,
+      width: double.infinity,
+      height: double.infinity,
+      color: Color(0xFFF0F8FF),
+      child: Column(
+        children: [
+          Container(
+            height: 300,
+            decoration: BoxDecoration(
+              color: Color(0xff1b9bda),
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(30),
+              ),
+            ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget buildProfileAvatar() {
+    return Container(
+      margin: EdgeInsets.only(top: 25),
       child: Center(
-        child: Text(
-          'Teacher Profile',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            fontFamily: 'RobotoSlab-VariableFont',
+        child: GestureDetector(
+          onTap: () async {
+            final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+            if (pickedFile != null) {
+              _updateImage(pickedFile.path);
+            }
+          },
+          child: CircleAvatar(
+            radius: 55,
+            backgroundColor: Colors.grey[300],
+            backgroundImage: _currentProfileImagePath.isNotEmpty
+                ? FileImage(File(_currentProfileImagePath))
+                : AssetImage('assets/images/girlStudent.png') as ImageProvider,
+            child: _currentProfileImagePath.isEmpty
+                ? Icon(Icons.person, size: 60, color: Colors.white)
+                : null,
           ),
         ),
       ),
     );
   }
 
-  Widget buildMiddleContainer() {
-    return Container(
-        width: 340,
-        height: 160,
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              spreadRadius: 2,
-              blurRadius: 5,
-            ),
-          ],
-        ),
-        transform: Matrix4.translationValues(0, -40, 0),
+  Widget buildProfileCard() {
+    return Center(
+      child: Container(
+        height: 75,
+        width: 200,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: _pickImage,
-              child: CircleAvatar(
-                radius: 40,
-                backgroundImage: _profileImage != null
-                    ? FileImage(_profileImage!)
-                    : AssetImage('assets/images/girlStudent.png')
-                        as ImageProvider,
-              ),
-            ),
-            SizedBox(width: 20),
-            Column(
+            Expanded(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Name: ${widget.name}',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  Text('Email: ${widget.email}',
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                ]),
-          ],
-        ));
-  }
-
-  Widget buildBottomContainer(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.only(top: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildContainer(
-                    context, Icons.add_task, 'Attendance', AttendenceT()),
-                buildContainer(
-                    context, Icons.event, 'Notifications', NotificationT()),
-              ],
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildContainer(
-                    context, Icons.fact_check_sharp, 'Timetable', TimetableT()),
-                buildContainer(context, Icons.call, 'Community', CommunityT()),
-              ],
+                  Center(child: Text('Mam Sadaf', style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold))),
+                  Center(child: Text('HOD BSIT', style: TextStyle(fontSize: 16, color: Colors.black54))),
+                ],
+              ),
             ),
           ],
         ),
@@ -187,20 +186,34 @@ class _TeacherPageState extends State<TeacherPage> {
     );
   }
 
-  Widget buildContainer(
-      BuildContext context, IconData icon, String title, Widget page) {
+  Widget buildGrid() {
+    return Container(
+      padding: EdgeInsets.only(top: 17, left: 30, right: 30, bottom: 9),
+      child: GridView.count(
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        children: [
+          buildGridItem(Icons.add_task, 'Attendance', AttendenceT()),
+          buildGridItem(Icons.event, 'Notifications', NotificationT()),
+          buildGridItem(Icons.fact_check_sharp, 'Timetable', TimetableT()),
+          buildGridItem(Icons.call, 'Community', CommunityT()),
+        ],
+      ),
+    );
+  }
+
+  Widget buildGridItem(IconData icon, String title, Widget page) {
     return InkWell(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => page,
-          ),
+          MaterialPageRoute(builder: (context) => page),
         );
       },
       child: Container(
-        height: 150,
-        width: 150,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -222,80 +235,7 @@ class _TeacherPageState extends State<TeacherPage> {
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'RobotoSlab-VariableFont',
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildBottomNavBar() {
-    return BottomAppBar(
-      shape: CircularNotchedRectangle(),
-      notchMargin: 10,
-      child: Container(
-        height: 70,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              spreadRadius: 2,
-              blurRadius: 5,
-            ),
-          ],
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              icon: Icon(Icons.add_task, color: Color(0xFF00B0FF)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AttendenceT(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.event, color: Color(0xFF00B0FF)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NotificationT(),
-                  ),
-                );
-              },
-            ),
-            SizedBox(width: 40),
-            IconButton(
-              icon: Icon(Icons.fact_check_sharp, color: Color(0xFF00B0FF)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TimetableT(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.call, color: Color(0xFF00B0FF)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CommunityT(),
-                  ),
-                );
-              },
             ),
           ],
         ),

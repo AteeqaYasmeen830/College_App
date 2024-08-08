@@ -22,6 +22,22 @@ class _LoginpageState extends State<Loginpage> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true, // Adjusts the screen when the keyboard appears
+        appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Signuppage()), // Navigate to Signup page
+              );
+            },
+          ),
+          backgroundColor: Color(0xff1b9bda), // AppBar background color
+          elevation: 0, // No shadow for AppBar
+        ),
         body: SingleChildScrollView( // Allows the screen to scroll when there is overflow
           child: Stack( // Allows widgets to be layered on top of each other
             children: [
@@ -37,7 +53,7 @@ class _LoginpageState extends State<Loginpage> {
               ),
               Column( // Main column to hold the form and other widgets
                 children: [
-                  SizedBox(height: 130), // Space at the top of the screen
+                  SizedBox(height: 100), // Space at the top of the screen
                   Text(
                     'Login',
                     style: TextStyle(
@@ -71,10 +87,10 @@ class _LoginpageState extends State<Loginpage> {
                               decoration: InputDecoration( // Styling the email field
                                 labelText: 'Email', // Label text
                                 border: OutlineInputBorder( // Border styling
-                                  borderRadius: BorderRadius.circular(10), // Rounded corners
+                                  borderRadius: BorderRadius.circular(25), // Rounded corners
                                 ),
                                 enabledBorder: OutlineInputBorder( // Border styling when enabled
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(25),
                                   borderSide: BorderSide(
                                     color: Color(0xff1b9bda),
                                   ),
@@ -85,12 +101,12 @@ class _LoginpageState extends State<Loginpage> {
                               style: TextStyle(color: Color(0xff1b9bda)), // Text color
                               validator: (value) { // Validator for the email field
                                 if (value == null || value.isEmpty) { // Check if email is empty
-                                  return 'Please enter your email';
+                                  return 'Please enter your Gmail';
                                 }
                                 String pattern = r'^[^@]+@gmail\.com$'; // Email pattern for validation
                                 RegExp regex = RegExp(pattern); // Regex for validation
                                 if (!regex.hasMatch(value)) { // Check if email is valid
-                                  return 'Please enter a valid Email address';
+                                  return 'Please enter a valid Gmail address';
                                 }
                                 return null; // No error if email is valid
                               },
@@ -102,10 +118,10 @@ class _LoginpageState extends State<Loginpage> {
                               decoration: InputDecoration( // Styling the password field
                                 labelText: 'Password', // Label text
                                 border: OutlineInputBorder( // Border styling
-                                  borderRadius: BorderRadius.circular(10), // Rounded corners
+                                  borderRadius: BorderRadius.circular(25), // Rounded corners
                                 ),
                                 enabledBorder: OutlineInputBorder( // Border styling when enabled
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(25),
                                   borderSide: BorderSide(
                                     color: Color(0xff1b9bda),
                                   ),
@@ -145,7 +161,7 @@ class _LoginpageState extends State<Loginpage> {
                               style: ElevatedButton.styleFrom( // Button styling
                                 backgroundColor: Color(0xff1b9bda), // Background color
                                 shape: RoundedRectangleBorder( // Button shape
-                                  borderRadius: BorderRadius.circular(10), // Rounded corners
+                                  borderRadius: BorderRadius.circular(25), // Rounded corners
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                               ),
@@ -153,7 +169,10 @@ class _LoginpageState extends State<Loginpage> {
                           ),
                           TextButton( // Signup button
                             onPressed: () { // Navigate to signup page
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => Signuppage()));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Signuppage()),
+                              );
                             },
                             child: Text(
                               'Don\'t have an account? Register', // Button text
