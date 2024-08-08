@@ -19,8 +19,10 @@ class Studentpage extends StatefulWidget {
 
 class _StudentpageState extends State<Studentpage> {
   late SharedPreferences _prefs; // To store instance of SharedPreferences
-  String _currentProfileImagePath = ''; // To store the current profile image path
-  int _selectedIndex = 0; // To store the index of selected tab in BottomNavigationBar
+  String _currentProfileImagePath =
+      ''; // To store the current profile image path
+  int _selectedIndex =
+      0; // To store the index of selected tab in BottomNavigationBar
 
   @override
   void initState() {
@@ -97,7 +99,8 @@ class _StudentpageState extends State<Studentpage> {
       child: Scaffold(
         body: _pages[0], // Display the selected page
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color(0xff1b9bda), // Background color for BottomNavigationBar
+          backgroundColor:
+              Color(0xff1b9bda), // Background color for BottomNavigationBar
           unselectedItemColor: Colors.white, // Unselected item color
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -130,7 +133,8 @@ class _StudentpageState extends State<Studentpage> {
           onImageChanged: _updateImage,
           studentName: 'Ateeqa Yasmeen',
           onProfileImageClick: () {
-            Navigator.pop(context); // Close the drawer when profile image is clicked
+            Navigator.pop(
+                context); // Close the drawer when profile image is clicked
           },
         );
       },
@@ -165,12 +169,18 @@ class HomePage extends StatelessWidget {
                     onTap: onDrawerOptions,
                     child: CircleAvatar(
                       radius: 55,
-                      backgroundColor: Colors.grey[300], // Placeholder background color
+                      backgroundColor:
+                          Colors.grey[300], // Placeholder background color
                       backgroundImage: currentProfileImagePath.isNotEmpty
-                          ? FileImage(File(currentProfileImagePath)) // Display image from file if available
-                          : AssetImage('assets/images/defaultProfile.png') as ImageProvider, // Default profile image
+                          ? FileImage(File(
+                              currentProfileImagePath)) // Display image from file if available
+                          : AssetImage('assets/images/defaultProfile.png')
+                              as ImageProvider, // Default profile image
                       child: currentProfileImagePath.isEmpty
-                          ? Icon(Icons.person, size: 60, color: Colors.white) // Placeholder icon if no image
+                          ? Icon(Icons.person,
+                              size: 60,
+                              color:
+                                  Colors.white) // Placeholder icon if no image
                           : null,
                     ),
                   ),
@@ -225,7 +235,12 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(child: Text('Ateeqa Yasmeen', style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold))),
+                  Center(
+                      child: Text('Ateeqa Yasmeen',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold))),
                 ],
               ),
             ),
@@ -244,21 +259,29 @@ class HomePage extends StatelessWidget {
         crossAxisSpacing: 10, // Spacing between columns
         mainAxisSpacing: 10, // Spacing between rows
         shrinkWrap: true, // Shrink wrap to fit the content
-        physics: NeverScrollableScrollPhysics(), // Disable scrolling for the grid
+        physics:
+            NeverScrollableScrollPhysics(), // Disable scrolling for the grid
         children: [
-          buildGridItem(context, Icons.add_task, 'Admission', Admission()), // Admission grid item
-          buildGridItem(context, Icons.event, 'Event', Event()), // Event grid item
-          buildGridItem(context, Icons.fact_check_sharp, 'Fee', Fee()), // Fee grid item
-          buildGridItem(context, Icons.access_alarm, 'Timetable', Timetable()), // Timetable grid item
-          buildGridItem(context, Icons.perm_contact_calendar_outlined, 'Attendance', Attendance()), // Attendance grid item
-          buildGridItem(context, Icons.calendar_month, 'Courses', Courses()), // Courses grid item
+          buildGridItem(context, Icons.add_task, 'Admission',
+              Admission()), // Admission grid item
+          buildGridItem(
+              context, Icons.event, 'Event', Event()), // Event grid item
+          buildGridItem(
+              context, Icons.fact_check_sharp, 'Fee', Fee()), // Fee grid item
+          buildGridItem(context, Icons.access_alarm, 'Timetable',
+              Timetable()), // Timetable grid item
+          buildGridItem(context, Icons.perm_contact_calendar_outlined,
+              'Attendance', Attendance()), // Attendance grid item
+          buildGridItem(context, Icons.calendar_month, 'Courses',
+              Courses()), // Courses grid item
         ],
       ),
     );
   }
 
   // Grid item widget
-  Widget buildGridItem(BuildContext context, IconData icon, String title, Widget page) {
+  Widget buildGridItem(
+      BuildContext context, IconData icon, String title, Widget page) {
     return InkWell(
       onTap: () {
         if (title == 'View Profile') {
@@ -294,9 +317,13 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 50, color: Color(0xff1b9bda)), // Icon for the grid item
+            Icon(icon,
+                size: 50, color: Color(0xff1b9bda)), // Icon for the grid item
             SizedBox(height: 10),
-            Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)), // Title for the grid item
+            Text(title,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold)), // Title for the grid item
           ],
         ),
       ),

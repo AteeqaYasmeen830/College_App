@@ -1,28 +1,70 @@
-import 'package:college_app/teacher_profile/page_teacher.dart';
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_app/Loginpage.dart';
-import 'Student_profile/Studentpage.dart';
+import 'package:college_app/Student_profile/Studentpage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class Signuppage extends StatefulWidget {
   @override
   _SignuppageState createState() => _SignuppageState();
 }
 
-class _SignuppageState extends State<Signuppage> {
-  final _formKey = GlobalKey<FormState>(); // Key to identify the form and its state
-  bool _passwordVisible = false; // Boolean to track the visibility of the password
+class _SignuppageState extends State<Studentpage> {
+  final _formKey = GlobalKey<FormState>();
+  bool _passwordVisible = false;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _passwordVisible = false; // Initially setting the password visibility to false
+    _passwordVisible = false;
+  }
+
+  Future<void> _register() async {
+    if (_formKey.currentState?.validate() == true) {
+      try {
+        // Create a new user with Firebase Authentication
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+
+        // Save user profile information to Firestore
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user?.uid)
+            .set({
+          'name': _nameController.text,
+          'email': _emailController.text,
+        });
+
+        // Navigate to the Studentpage or TeacherPage
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  Studentpage()), // Adjust navigation as needed
+        );
+      } catch (e) {
+        print("Error registering user: $e");
+        // Show an error message to the user
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: ${e.toString()}'),
+          ),
+        );
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: true, // Allows the bottom inset to be adjusted when the keyboard appears
+        resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           child: Stack(
             children: [
@@ -30,47 +72,48 @@ class _SignuppageState extends State<Signuppage> {
                 width: double.infinity,
                 height: 600,
                 decoration: BoxDecoration(
-                  color: Color(0xff1b9bda), // Background color of the container
+                  color: Color(0xff1b9bda),
                   borderRadius: BorderRadius.only(
-                    bottomRight: Radius.elliptical(500, 500), // Curved bottom-right border
+                    bottomRight: Radius.elliptical(500, 500),
                   ),
                 ),
               ),
               Column(
                 children: [
-                  SizedBox(height: 130), // Space from the top
+                  SizedBox(height: 130),
                   Text(
-                    'Sign Up', // Title text
+                    'Sign Up',
                     style: TextStyle(
                       fontSize: 34,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 30), // Space between title and form
+                  SizedBox(height: 30),
                   Container(
-                    margin: EdgeInsets.only(left: 16, right: 16), // Margin around the form container
-                    padding: EdgeInsets.all(16), // Padding inside the form container
+                    margin: EdgeInsets.only(left: 16, right: 16),
+                    padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15), // Rounded corners
-                      color: Colors.white, // Background color
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black26,
                           blurRadius: 10,
-                          offset: Offset(0, 5), // Shadow effect
+                          offset: Offset(0, 5),
                         ),
                       ],
                     ),
                     child: Form(
-                      key: _formKey, // Form key for validation
+                      key: _formKey,
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(5.0), // Padding around the email field
+                            padding: const EdgeInsets.all(5.0),
                             child: TextFormField(
+                              controller: _emailController,
                               decoration: InputDecoration(
-                                labelText: 'Email', // Label for email field
+                                labelText: 'Email',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -80,15 +123,16 @@ class _SignuppageState extends State<Signuppage> {
                                     color: Color(0xff1b9bda),
                                   ),
                                 ),
-                                suffixIcon: Icon(Icons.email, color: Color(0xff1b9bda)), // Email icon
+                                suffixIcon:
+                                    Icon(Icons.email, color: Color(0xff1b9bda)),
                                 labelStyle: TextStyle(color: Color(0xff1b9bda)),
                               ),
-                              style: TextStyle(color: Color(0xff1b9bda)), // Text style inside the field
+                              style: TextStyle(color: Color(0xff1b9bda)),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your email';
                                 }
-                                String pattern = r'^[^@]+@gmail\.com$'; // Regex pattern for Gmail validation
+                                String pattern = r'^[^@]+@gmail\.com$';
                                 RegExp regex = RegExp(pattern);
                                 if (!regex.hasMatch(value)) {
                                   return 'Please enter a valid Email address';
@@ -98,10 +142,11 @@ class _SignuppageState extends State<Signuppage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(5.0), // Padding around the password field
+                            padding: const EdgeInsets.all(5.0),
                             child: TextFormField(
+                              controller: _passwordController,
                               decoration: InputDecoration(
-                                labelText: 'Password', // Label for password field
+                                labelText: 'Password',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
@@ -113,19 +158,21 @@ class _SignuppageState extends State<Signuppage> {
                                 ),
                                 suffixIcon: IconButton(
                                   icon: Icon(
-                                    _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                                    _passwordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
                                     color: Color(0xff1b9bda),
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      _passwordVisible = !_passwordVisible; // Toggle password visibility
+                                      _passwordVisible = !_passwordVisible;
                                     });
                                   },
                                 ),
                                 labelStyle: TextStyle(color: Color(0xff1b9bda)),
                               ),
-                              style: TextStyle(color: Color(0xff1b9bda)), // Text style inside the field
-                              obscureText: !_passwordVisible, // Password obscured or visible based on the toggle
+                              style: TextStyle(color: Color(0xff1b9bda)),
+                              obscureText: !_passwordVisible,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your password';
@@ -135,10 +182,11 @@ class _SignuppageState extends State<Signuppage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(5.0), // Padding around the username field
+                            padding: const EdgeInsets.all(5.0),
                             child: TextFormField(
+                              controller: _nameController,
                               decoration: InputDecoration(
-                                labelText: 'Name', // Label for username field
+                                labelText: 'Name',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -148,10 +196,11 @@ class _SignuppageState extends State<Signuppage> {
                                     color: Color(0xff1b9bda),
                                   ),
                                 ),
-                                suffixIcon: Icon(Icons.person, color: Color(0xff1b9bda)), // Username icon
+                                suffixIcon: Icon(Icons.person,
+                                    color: Color(0xff1b9bda)),
                                 labelStyle: TextStyle(color: Color(0xff1b9bda)),
                               ),
-                              style: TextStyle(color: Color(0xff1b9bda)), // Text style inside the field
+                              style: TextStyle(color: Color(0xff1b9bda)),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your name';
@@ -160,64 +209,52 @@ class _SignuppageState extends State<Signuppage> {
                               },
                             ),
                           ),
-                          SizedBox(height: 10), // Space between the username field and buttons
+                          SizedBox(height: 10),
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {
-                                    if (_formKey.currentState?.validate() == true) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Studentpage()), // Navigate to Studentpage on validation
-                                      );
-                                    }
-                                  },
-                                  child: Text('SignUp as Student', style: TextStyle(color: Colors.white)),
+                                  onPressed: _register,
+                                  child: Text('SignUp as Student',
+                                      style: TextStyle(color: Colors.white)),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Color(0xff1b9bda),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15), // Button padding
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 15),
                                   ),
                                 ),
                                 ElevatedButton(
-                                  onPressed: () {
-                                    if (_formKey.currentState?.validate() == true) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => TeacherPage(name: '', email: '',)), // Navigate to TeacherPage on validation
-                                      );
-                                    }
-                                  },
-                                  child: Text('SignUp as Teacher', style: TextStyle(color: Colors.white)),
+                                  onPressed: _register,
+                                  child: Text('SignUp as Teacher',
+                                      style: TextStyle(color: Colors.white)),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Color(0xff1b9bda),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(25),
                                     ),
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15), // Button padding
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 15),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(height: 10), // Space between the buttons and login link
+                          SizedBox(height: 10),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Loginpage()), // Navigate to Loginpage
+                                    builder: (context) => Loginpage()),
                               );
                             },
                             child: Text(
-                              'Already have an account? Login', // Login link text
+                              'Already have an account? Login',
                               style: TextStyle(color: Color(0xff1b9bda)),
                             ),
                           ),
