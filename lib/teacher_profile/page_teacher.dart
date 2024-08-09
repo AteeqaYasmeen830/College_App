@@ -9,7 +9,9 @@ import 'T_notification.dart';
 import 'T_timetable.dart';
 
 class TeacherPage extends StatefulWidget {
+  final name;
   @override
+  TeacherPage({required this.name});
   _TeacherPageState createState() => _TeacherPageState();
 }
 
@@ -143,7 +145,8 @@ class _TeacherPageState extends State<TeacherPage> {
       child: Center(
         child: GestureDetector(
           onTap: () async {
-            final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+            final pickedFile =
+                await ImagePicker().pickImage(source: ImageSource.gallery);
             if (pickedFile != null) {
               _updateImage(pickedFile.path);
             }
@@ -175,8 +178,16 @@ class _TeacherPageState extends State<TeacherPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(child: Text('Mam Sadaf', style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold))),
-                  Center(child: Text('HOD BSIT', style: TextStyle(fontSize: 16, color: Colors.black54))),
+                  Center(
+                      child: Text('${widget.name}',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold))),
+                  Center(
+                      child: Text('HOD BSIT',
+                          style:
+                              TextStyle(fontSize: 16, color: Colors.black54))),
                 ],
               ),
             ),

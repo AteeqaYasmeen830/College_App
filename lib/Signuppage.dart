@@ -27,13 +27,17 @@ class _SignuppageState extends State<Signuppage> {
     if (_formKey.currentState?.validate() == true) {
       try {
         // Create a new user with Firebase Authentication
-        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text,
         );
 
         // Save user profile information to Firestore
-        await FirebaseFirestore.instance.collection('users').doc(userCredential.user?.uid).set({
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user?.uid)
+            .set({
           'name': _nameController.text,
           'email': _emailController.text,
           'role': role,
@@ -43,12 +47,14 @@ class _SignuppageState extends State<Signuppage> {
         if (role == 'Student') {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => Studentpage()),
+            MaterialPageRoute(
+                builder: (context) => Studentpage(name: _nameController.text)),
           );
         } else if (role == 'Teacher') {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => TeacherPage()),
+            MaterialPageRoute(
+                builder: (context) => TeacherPage(name: _nameController.text)),
           );
         }
       } catch (e) {
@@ -77,7 +83,9 @@ class _SignuppageState extends State<Signuppage> {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => Loginpage()), // Navigate to Signup page
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Loginpage()), // Navigate to Signup page
               );
             },
           ),
@@ -110,10 +118,13 @@ class _SignuppageState extends State<Signuppage> {
                   ),
                   SizedBox(height: 30), // Space between title and form
                   Container(
-                    margin: EdgeInsets.only(left: 16, right: 16), // Form container margin
-                    padding: EdgeInsets.all(16), // Padding inside form container
+                    margin: EdgeInsets.only(
+                        left: 16, right: 16), // Form container margin
+                    padding:
+                        EdgeInsets.all(16), // Padding inside form container
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15), // Rounded corners
+                      borderRadius:
+                          BorderRadius.circular(15), // Rounded corners
                       color: Colors.white, // Background color
                       boxShadow: [
                         BoxShadow(
@@ -128,7 +139,8 @@ class _SignuppageState extends State<Signuppage> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(5.0), // Email field padding
+                            padding: const EdgeInsets.all(
+                                5.0), // Email field padding
                             child: TextFormField(
                               controller: _emailController,
                               decoration: InputDecoration(
@@ -142,15 +154,18 @@ class _SignuppageState extends State<Signuppage> {
                                     color: Color(0xff1b9bda),
                                   ),
                                 ),
-                                suffixIcon: Icon(Icons.email, color: Color(0xff1b9bda)), // Email icon
+                                suffixIcon: Icon(Icons.email,
+                                    color: Color(0xff1b9bda)), // Email icon
                                 labelStyle: TextStyle(color: Color(0xff1b9bda)),
                               ),
-                              style: TextStyle(color: Color(0xff1b9bda)), // Text style
+                              style: TextStyle(
+                                  color: Color(0xff1b9bda)), // Text style
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your Gmail';
                                 }
-                                String pattern = r'^[^@]+@gmail\.com$'; // Regex for Gmail validation
+                                String pattern =
+                                    r'^[^@]+@gmail\.com$'; // Regex for Gmail validation
                                 RegExp regex = RegExp(pattern);
                                 if (!regex.hasMatch(value)) {
                                   return 'Please enter a valid Gmail address';
@@ -160,7 +175,8 @@ class _SignuppageState extends State<Signuppage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(5.0), // Password field padding
+                            padding: const EdgeInsets.all(
+                                5.0), // Password field padding
                             child: TextFormField(
                               controller: _passwordController,
                               decoration: InputDecoration(
@@ -176,19 +192,24 @@ class _SignuppageState extends State<Signuppage> {
                                 ),
                                 suffixIcon: IconButton(
                                   icon: Icon(
-                                    _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                                    _passwordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
                                     color: Color(0xff1b9bda),
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      _passwordVisible = !_passwordVisible; // Toggle password visibility
+                                      _passwordVisible =
+                                          !_passwordVisible; // Toggle password visibility
                                     });
                                   },
                                 ),
                                 labelStyle: TextStyle(color: Color(0xff1b9bda)),
                               ),
-                              style: TextStyle(color: Color(0xff1b9bda)), // Text style
-                              obscureText: !_passwordVisible, // Password visibility toggle
+                              style: TextStyle(
+                                  color: Color(0xff1b9bda)), // Text style
+                              obscureText:
+                                  !_passwordVisible, // Password visibility toggle
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your password';
@@ -200,7 +221,8 @@ class _SignuppageState extends State<Signuppage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(5.0), // Name field padding
+                            padding:
+                                const EdgeInsets.all(5.0), // Name field padding
                             child: TextFormField(
                               controller: _nameController,
                               decoration: InputDecoration(
@@ -214,10 +236,12 @@ class _SignuppageState extends State<Signuppage> {
                                     color: Color(0xff1b9bda),
                                   ),
                                 ),
-                                suffixIcon: Icon(Icons.person, color: Color(0xff1b9bda)), // Name icon
+                                suffixIcon: Icon(Icons.person,
+                                    color: Color(0xff1b9bda)), // Name icon
                                 labelStyle: TextStyle(color: Color(0xff1b9bda)),
                               ),
-                              style: TextStyle(color: Color(0xff1b9bda)), // Text style
+                              style: TextStyle(
+                                  color: Color(0xff1b9bda)), // Text style
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your name';
@@ -226,7 +250,8 @@ class _SignuppageState extends State<Signuppage> {
                               },
                             ),
                           ),
-                          SizedBox(height: 10), // Space between fields and buttons
+                          SizedBox(
+                              height: 10), // Space between fields and buttons
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Row(
@@ -236,40 +261,51 @@ class _SignuppageState extends State<Signuppage> {
                                   onPressed: () {
                                     _register('Student'); // Register as Student
                                   },
-                                  child: Text('SignUp as Student', style: TextStyle(color: Colors.white)),
+                                  child: Text('SignUp as Student',
+                                      style: TextStyle(color: Colors.white)),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Color(0xff1b9bda),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(25),
                                     ),
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15), // Button padding
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 15), // Button padding
                                   ),
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
                                     _register('Teacher'); // Register as Teacher
                                   },
-                                  child: Text('SignUp as Teacher', style: TextStyle(color: Colors.white)),
+                                  child: Text('SignUp as Teacher',
+                                      style: TextStyle(color: Colors.white)),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Color(0xff1b9bda),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(25),
                                     ),
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15), // Button padding
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 15), // Button padding
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(height: 10), // Space between buttons and login link
+                          SizedBox(
+                              height:
+                                  10), // Space between buttons and login link
                           TextButton(
                             onPressed: () {
                               Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(builder: (context) => Loginpage()), // Navigate to login page
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        Loginpage()), // Navigate to login page
                               );
                             },
-                            child: Text('Already have an account? Login', style: TextStyle(color: Color(0xff1b9bda))),
+                            child: Text('Already have an account? Login',
+                                style: TextStyle(color: Color(0xff1b9bda))),
                           ),
                         ],
                       ),

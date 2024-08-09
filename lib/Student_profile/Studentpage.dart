@@ -13,6 +13,8 @@ import 'Timetable.dart'; // Importing Timetable page
 import 'Viewprofile.dart'; // Importing Viewprofile page
 
 class Studentpage extends StatefulWidget {
+  final name;
+  Studentpage({required this.name});
   @override
   _StudentpageState createState() => _StudentpageState();
 }
@@ -92,6 +94,7 @@ class _StudentpageState extends State<Studentpage> {
         onImageChanged: _updateImage,
         currentProfileImagePath: _currentProfileImagePath,
         onDrawerOptions: _showDrawerOptions,
+        name: widget.name,
       ),
     ];
 
@@ -131,7 +134,7 @@ class _StudentpageState extends State<Studentpage> {
         return AppDrawer(
           profileImagePath: _currentProfileImagePath,
           onImageChanged: _updateImage,
-          studentName: 'Ateeqa Yasmeen',
+          studentName: '${widget.name}',
           onProfileImageClick: () {
             Navigator.pop(
                 context); // Close the drawer when profile image is clicked
@@ -147,11 +150,12 @@ class HomePage extends StatelessWidget {
   final void Function(String) onImageChanged; // Callback to update the image
   final String currentProfileImagePath; // Current profile image path
   final VoidCallback onDrawerOptions; // Callback to show drawer options
-
+  final String name;
   HomePage({
     required this.onImageChanged,
     required this.currentProfileImagePath,
     required this.onDrawerOptions,
+    required this.name,
   });
 
   @override
@@ -236,7 +240,7 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                      child: Text('Ateeqa Yasmeen',
+                      child: Text(name,
                           style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,
